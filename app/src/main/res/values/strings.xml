@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Android-Recipe-Book-With-Firebase</string>
+    <string name="title_home">Local</string>
+    <string name="title_notifications">Online</string>
+</resources>
