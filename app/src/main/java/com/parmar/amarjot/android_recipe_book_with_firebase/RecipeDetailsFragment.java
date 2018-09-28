@@ -1,6 +1,7 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RecipeDetailsFragment extends Fragment{
+
+    private LocalSQLiteDatabaseHelper localDB;
+    private OnlineSQLiteDatabaseHelper onlineDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,8 +50,15 @@ public class RecipeDetailsFragment extends Fragment{
         Bundle bundle = getActivity().getIntent().getExtras();
         String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
 
-        toastMessage(recipe_title);
+        //toastMessage(recipe_title);
 
+        localDB = new LocalSQLiteDatabaseHelper(getContext());
+        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+
+        Cursor data = onlineDB.getRecipe(recipe_title);
+        while(data.moveToNext()) {
+            toastMessage(data.getString(1));
+        }
         // Make database query and save results into local DB.
     }
 
