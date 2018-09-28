@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
+public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TABLE_NAME = "FirebaseRecipes";
+    private static final String TABLE_NAME = "OnlineRecipes";
     private static final String COL0 = "ID";
     private static final String COL1 = "recipeName";
     private static final String COL2 = "recipeDescription";
@@ -16,7 +16,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL4 = "recipeIngredients";
     private static final String COL5 = "recipeDirections";
 
-    public SQLiteDatabaseHelper(Context context) {
+    public OnlineSQLiteDatabaseHelper(Context context) {
 
         super(context, TABLE_NAME, null, 1);
     }
@@ -58,9 +58,9 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public void clearDatabase() {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
-//        db.execSQL(clearDBQuery);
-//    }
+    public void clearDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
+        db.execSQL(clearDBQuery);
+    }
 }
