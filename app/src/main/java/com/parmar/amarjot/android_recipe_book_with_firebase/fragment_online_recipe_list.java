@@ -62,7 +62,7 @@ public class fragment_online_recipe_list extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //displayRecipeDetails(i);
+                displayRecipeDetails(i);
             }
         });
     }
@@ -110,24 +110,22 @@ public class fragment_online_recipe_list extends Fragment {
         });
     }
 
-//    protected void displayRecipeDetails(int position) {
-//        Intent intent = new Intent(getActivity(), DisplayMessageActivity.class);
-//        Bundle recipe_details = new Bundle();
-//        recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
-//        recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
-//        intent.putExtras(recipe_details);
-//        startActivity(intent);
-//        getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
-//    }
+    protected void displayRecipeDetails(int position) {
+        Intent intent = new Intent(getActivity(), DisplayRecipe.class);
+        Bundle recipe_details = new Bundle();
+        recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
+        recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
+        intent.putExtras(recipe_details);
+        startActivity(intent);
+        getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
+    }
 
     protected void loadArrays () {
         Cursor data = onlineDB.getData();
         ArrayList<String> listData = new ArrayList<>();
 
-        System.out.println("Loading ARRAYS !!!");
-
         int count = 0;
-        while(data.moveToNext()){
+        while (data.moveToNext()) {
             //get the value from the database in column 1
             //then add it to the ArrayList
             recipe_title[count] = data.getString(1);
@@ -136,22 +134,5 @@ public class fragment_online_recipe_list extends Fragment {
             System.out.println(recipe_title[count]);
             count++;
         }
-
-//        private static final String COL1 = "recipeName";
-//        private static final String COL2 = "recipeDescription";
-//        private static final String COL3 = "recipeCategory";
-//        private static final String COL4 = "recipeIngredients";
-//        private static final String COL5 = "recipeDirections";
-//        private static final String COL6 = "recipeImageID";
     }
-//    protected void loadArray () {
-//        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
-//
-//
-//
-//
-//        recipe_title = new String[]{"hi", "x", "hi", "x", "hi", "x"};
-//        recipe_description = new String[]{"Hello", "x", "hi", "x", "hi", "x"};
-//        recipe_image_id = new Integer[]{2131165304, 2131165304, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp};
-//    }
 }
