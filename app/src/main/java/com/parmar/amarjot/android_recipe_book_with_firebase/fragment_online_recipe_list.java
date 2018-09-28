@@ -1,12 +1,23 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class fragment_online_recipe_list extends Fragment {
 
@@ -19,6 +30,7 @@ public class fragment_online_recipe_list extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_online_recipe_list, container, false);
     }
 
@@ -26,13 +38,13 @@ public class fragment_online_recipe_list extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
         setupList();
     }
 
     protected void setupList () {
 
         loadArray(); // pullDataFromFirebase
+        pullDataFromFirebase();
 
         list= getView().findViewById(R.id.listView);
         CustomListview customListview = new CustomListview(getContext(), recipe_title, recipe_description, recipe_image_id);
@@ -46,7 +58,37 @@ public class fragment_online_recipe_list extends Fragment {
     }
 
     protected void pullDataFromFirebase() {
-        // Get Data from Firebase, Store in mysql, Display in list
+        // Get a reference to our posts
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("recipes");
+        // Attach a listener to read the data at our posts reference
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot singleSnapshot: dataSnapshot.getChildren())
+                {
+                    // How to parse JSON : //http://theoryapp.com/parse-json-in-java/
+                    JSONObject obj;
+                    try {
+                        obj = new JSONObject(singleSnapshot.getValue().toString());
+
+                        System.out.println("- JSON OBJECT : " + obj.toString());
+
+                        String recipeName = obj.getString("name");
+                        String recipeDescription = obj.getString("name");
+                        String recipeCategory = obj.getString("category");
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
 //    protected void displayRecipeDetails(int position) {
@@ -62,6 +104,6 @@ public class fragment_online_recipe_list extends Fragment {
     protected void loadArray () {
         recipe_title = new String[]{"hi", "x", "hi", "x", "hi", "x"};
         recipe_description = new String[]{"Hello", "x", "hi", "x", "hi", "x"};
-        recipe_image_id = new Integer[]{R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp};
+        recipe_image_id = new Integer[]{2131165304, 2131165304, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp};
     }
 }
