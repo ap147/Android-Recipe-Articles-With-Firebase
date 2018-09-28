@@ -18,7 +18,7 @@ public class DisplayRecipe extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_recipe);
 
-        //setupActionbar();
+        setupActionbar();
         setupFragment();
 
     }
@@ -38,15 +38,8 @@ public class DisplayRecipe extends AppCompatActivity{
         Bundle bundle = getIntent().getExtras();
         String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        toolbar.setTitleTextColor(Color.WHITE);
-        getSupportActionBar().setTitle(recipe_title);
-
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24px);
+        actionbar.setTitle(recipe_title);
     }
 
     @Override

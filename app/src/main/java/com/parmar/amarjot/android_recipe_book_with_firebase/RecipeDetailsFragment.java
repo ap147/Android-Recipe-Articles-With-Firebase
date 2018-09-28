@@ -1,12 +1,15 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecipeDetailsFragment extends Fragment{
 
@@ -25,6 +28,27 @@ public class RecipeDetailsFragment extends Fragment{
         img.setImageResource(recipe_image);
 
         setRecipeDetails();
+        setupSaveButton();
+    }
+
+    private void setupSaveButton() {
+
+        final Button saveRecipe = getView().findViewById(R.id.buttonSaveRecipe);
+
+        saveRecipe.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saveRecipe();
+            }
+        });
+    }
+
+    private void saveRecipe() {
+        Bundle bundle = getActivity().getIntent().getExtras();
+        String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
+
+        toastMessage(recipe_title);
+
+        // Make database query and save results into local DB.
     }
 
     // Loads recipe details (ingredients, directions)
@@ -53,5 +77,14 @@ public class RecipeDetailsFragment extends Fragment{
         direction_3.setText(getString(R.string.direction3));
         direction_4.setText(getString(R.string.direction4));
         direction_5.setText(getString(R.string.direction5));
+    }
+
+    public void toastMessage(String msg){
+
+        Context context = getContext().getApplicationContext();
+        CharSequence text = msg;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

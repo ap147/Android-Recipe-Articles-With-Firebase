@@ -35,6 +35,12 @@
                 app:civ_shadow_radius="10"
                 app:civ_shadow_color="@color/colorPrimary"/>
 
+            <Button
+                android:id="@+id/buttonSaveRecipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
