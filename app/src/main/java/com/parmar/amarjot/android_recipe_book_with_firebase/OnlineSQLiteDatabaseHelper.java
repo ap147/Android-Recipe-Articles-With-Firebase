@@ -12,9 +12,10 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL0 = "ID";
     private static final String COL1 = "recipeName";
     private static final String COL2 = "recipeDescription";
-    private static final String COL3 = "recipeType";
+    private static final String COL3 = "recipeCategory";
     private static final String COL4 = "recipeIngredients";
     private static final String COL5 = "recipeDirections";
+    private static final String COL6 = "recipeImageID";
 
     public OnlineSQLiteDatabaseHelper(Context context) {
 
@@ -26,7 +27,7 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
 
         String createTable = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " " +  COL1 + " TEXT," + " " +  COL2 + " TEXT," + " " +  COL3 +  " TEXT," + " " +
-                COL4 + " TEXT," + " " +  COL5 + " TEXT)";
+                COL4 + " TEXT," + " " +  COL5 + " TEXT," + " " +  COL6 + " TEXT)";
         sqLiteDatabase.execSQL(createTable);
     }
 
@@ -43,9 +44,16 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public boolean addData(String item) {
+    public boolean addData(Recipe recipe) {
+
+        Recipe addRecipe = recipe;
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL1, item);
+        contentValues.put(COL1, addRecipe.getName());
+        contentValues.put(COL2, addRecipe.getDescription());
+        contentValues.put(COL3, addRecipe.getCategory());
+        contentValues.put(COL4, addRecipe.getIngredients());
+        contentValues.put(COL5, addRecipe.getDirections());
+        contentValues.put(COL6, addRecipe.getImageID());
         SQLiteDatabase db = this.getWritableDatabase();
 
         long result = db.insert(TABLE_NAME, null, contentValues);

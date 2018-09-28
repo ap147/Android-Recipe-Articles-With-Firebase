@@ -1,5 +1,6 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -19,12 +20,17 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class fragment_online_recipe_list extends Fragment {
 
     ListView list;
 
-    String [] recipe_title, recipe_description;
+    String[] recipe_title;
+    String [] recipe_description;
     Integer [] recipe_image_id;
+
+    private OnlineSQLiteDatabaseHelper onlineDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,13 +44,17 @@ public class fragment_online_recipe_list extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        setupList();
+        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+        recipe_title = new String[6];
+        recipe_description = new String[6];
+        recipe_image_id = new Integer[6];
+
+        pullDataFromFirebase();
     }
 
     protected void setupList () {
 
-        loadArray(); // pullDataFromFirebase
-        pullDataFromFirebase();
+        loadArrays();
 
         list= getView().findViewById(R.id.listView);
         CustomListview customListview = new CustomListview(getContext(), recipe_title, recipe_description, recipe_image_id);
@@ -58,6 +68,8 @@ public class fragment_online_recipe_list extends Fragment {
     }
 
     protected void pullDataFromFirebase() {
+
+        onlineDB.clearDatabase();
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("recipes");
@@ -77,6 +89,13 @@ public class fragment_online_recipe_list extends Fragment {
                         String recipeName = obj.getString("name");
                         String recipeDescription = obj.getString("name");
                         String recipeCategory = obj.getString("category");
+                        String recipeIngredients = obj.getString("name");
+                        String recipeDirections = obj.getString("name");
+                        String recipeImageID = obj.getString("imageID");
+
+                        Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
+                        onlineDB.addData(recipe);
+                        setupList();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -101,9 +120,38 @@ public class fragment_online_recipe_list extends Fragment {
 //        getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
 //    }
 
-    protected void loadArray () {
-        recipe_title = new String[]{"hi", "x", "hi", "x", "hi", "x"};
-        recipe_description = new String[]{"Hello", "x", "hi", "x", "hi", "x"};
-        recipe_image_id = new Integer[]{2131165304, 2131165304, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp};
+    protected void loadArrays () {
+        Cursor data = onlineDB.getData();
+        ArrayList<String> listData = new ArrayList<>();
+
+        System.out.println("Loading ARRAYS !!!");
+
+        int count = 0;
+        while(data.moveToNext()){
+            //get the value from the database in column 1
+            //then add it to the ArrayList
+            recipe_title[count] = data.getString(1);
+            recipe_description[count] = data.getString(2);
+            recipe_image_id[count] = Integer.parseInt(data.getString(6));
+            System.out.println(recipe_title[count]);
+            count++;
+        }
+
+//        private static final String COL1 = "recipeName";
+//        private static final String COL2 = "recipeDescription";
+//        private static final String COL3 = "recipeCategory";
+//        private static final String COL4 = "recipeIngredients";
+//        private static final String COL5 = "recipeDirections";
+//        private static final String COL6 = "recipeImageID";
     }
+//    protected void loadArray () {
+//        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+//
+//
+//
+//
+//        recipe_title = new String[]{"hi", "x", "hi", "x", "hi", "x"};
+//        recipe_description = new String[]{"Hello", "x", "hi", "x", "hi", "x"};
+//        recipe_image_id = new Integer[]{2131165304, 2131165304, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp, R.drawable.ic_baseline_arrow_back_24px, R.drawable.ic_home_black_24dp};
+//    }
 }
