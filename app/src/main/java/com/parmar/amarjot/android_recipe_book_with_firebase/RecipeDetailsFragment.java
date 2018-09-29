@@ -17,6 +17,8 @@ public class RecipeDetailsFragment extends Fragment{
     private LocalSQLiteDatabaseHelper localDB;
     private OnlineSQLiteDatabaseHelper onlineDB;
 
+    private String recipe_title;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,35 +33,80 @@ public class RecipeDetailsFragment extends Fragment{
         ImageView img = getView().findViewById(R.id.imageView);
         img.setImageResource(recipe_image);
 
+        initilize();
+    }
+
+    private void initilize() {
+        Bundle bundle = getActivity().getIntent().getExtras();
+        recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
+        localDB = new LocalSQLiteDatabaseHelper(getContext());
+        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+
         setRecipeDetails();
         setupSaveButton();
     }
 
     private void setupSaveButton() {
 
-        final Button saveRecipe = getView().findViewById(R.id.buttonSaveRecipe);
+        final Button saveRecipeButton = getView().findViewById(R.id.buttonSaveRecipe);
 
-        saveRecipe.setOnClickListener(new View.OnClickListener() {
+        if (localDB.recipeExists(recipe_title)) {
+            saveRecipeButton.setText("Saved");
+        }
+
+        saveRecipeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                saveRecipe();
+
+                if (localDB.recipeExists(recipe_title)) {
+                    unSaveRecipe();
+                    saveRecipeButton.setText("Save");
+                }
+                else {
+                    saveRecipe();
+                    saveRecipeButton.setText("Saved");
+                }
             }
         });
     }
 
+
+    private boolean unSaveRecipe() {
+
+        boolean result = localDB.deleteEntry(recipe_title);
+
+        if (result) {
+            toastMessage("Recipe Unsaved Succesfully");
+        }
+        else {
+            toastMessage("An error occured");
+        }
+
+        return result;
+    }
+
     private void saveRecipe() {
-        Bundle bundle = getActivity().getIntent().getExtras();
-        String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
-
-        //toastMessage(recipe_title);
-
-        localDB = new LocalSQLiteDatabaseHelper(getContext());
-        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
 
         Cursor data = onlineDB.getRecipe(recipe_title);
+
+        Recipe recipe;
+
         while(data.moveToNext()) {
-            toastMessage(data.getString(1));
+            String recipeName = data.getString(1);
+            String recipeDescription = data.getString(2);
+            String recipeCategory = data.getString(3);
+            String recipeIngredients = data.getString(4);
+            String recipeDirections = data.getString(5);
+            String recipeImageID = data.getString(6);
+
+            recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
+
+            if (localDB.addData(recipe)) {
+                toastMessage("Recipe Saved Succesfully");
+            }
+            else {
+                toastMessage("An error occured");
+            }
         }
-        // Make database query and save results into local DB.
     }
 
     // Loads recipe details (ingredients, directions)

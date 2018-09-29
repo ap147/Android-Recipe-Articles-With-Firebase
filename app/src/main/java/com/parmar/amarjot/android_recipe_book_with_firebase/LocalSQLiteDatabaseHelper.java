@@ -44,12 +44,30 @@ public class LocalSQLiteDatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public Cursor getRecipe(String recipeName)
-    {
+    public Cursor getRecipe(String recipeName) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\"" ;
         Cursor data = db.rawQuery(query, null);
         return data;
+    }
+
+    public boolean recipeExists(String recipeName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT EXISTS(SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\")";
+        Cursor data = db.rawQuery(query, null);
+
+        while(data.moveToNext()) {
+            int dataExists = data.getInt(0);
+            if (dataExists == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return true;
     }
 
     public boolean addData(Recipe recipe) {
@@ -74,8 +92,17 @@ public class LocalSQLiteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteEntry(String recipeName) {
+    public boolean deleteEntry(String recipeName) {
 
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, COL1 + "=\"" + recipeName + "\"", null);
+
+        if (result == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public void clearDatabase() {
