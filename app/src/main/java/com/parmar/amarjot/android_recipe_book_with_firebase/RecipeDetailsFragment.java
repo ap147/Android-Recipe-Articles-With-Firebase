@@ -1,6 +1,7 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,8 @@ public class RecipeDetailsFragment extends Fragment{
     private void setupSaveButton() {
 
         final Button saveRecipeButton = getView().findViewById(R.id.buttonSaveRecipe);
+        final Button shareRecipeButton = getView().findViewById(R.id.buttonShareRecipe);
+
 
         if (localDB.recipeExists(recipe_title)) {
             saveRecipeButton.setText("Saved");
@@ -67,8 +70,24 @@ public class RecipeDetailsFragment extends Fragment{
                 }
             }
         });
+
+        shareRecipeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shareRecipe();
+            }
+        });
+
     }
 
+    private void shareRecipe() {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+
+        String msgToShare = recipe_title;
+        sendIntent.putExtra(Intent.EXTRA_TEXT, msgToShare);
+
+        startActivity(Intent.createChooser(sendIntent, "Share using"));
+    }
 
     private boolean unSaveRecipe() {
 
