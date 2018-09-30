@@ -18,7 +18,7 @@ public class RecipeDetailsFragment extends Fragment{
     private LocalSQLiteDatabaseHelper localDB;
     private OnlineSQLiteDatabaseHelper onlineDB;
 
-    private String recipe_title;
+    private Recipe recipe;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,9 +39,11 @@ public class RecipeDetailsFragment extends Fragment{
 
     private void initilize() {
         Bundle bundle = getActivity().getIntent().getExtras();
-        recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
+        String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
         localDB = new LocalSQLiteDatabaseHelper(getContext());
         onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+
+        recipe = onlineDB.getRecipe(recipe_title);
 
         setRecipeDetails();
         setupSaveButton();
@@ -53,14 +55,14 @@ public class RecipeDetailsFragment extends Fragment{
         final Button shareRecipeButton = getView().findViewById(R.id.buttonShareRecipe);
 
 
-        if (localDB.recipeExists(recipe_title)) {
+        if (localDB.recipeExists(recipe.getName())) {
             saveRecipeButton.setText("Saved");
         }
 
         saveRecipeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (localDB.recipeExists(recipe_title)) {
+                if (localDB.recipeExists(recipe.getName())) {
                     unSaveRecipe();
                     saveRecipeButton.setText("Save");
                 }
@@ -83,7 +85,9 @@ public class RecipeDetailsFragment extends Fragment{
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
 
-        String msgToShare = recipe_title;
+        String msgToShare = recipe.getName() + "\n" + recipe.getDescription() + ", "
+                + recipe.getCategory() + ", " + recipe.getIngredients()
+                + ", " + recipe.getDirections();
         sendIntent.putExtra(Intent.EXTRA_TEXT, msgToShare);
 
         startActivity(Intent.createChooser(sendIntent, "Share using"));
@@ -91,7 +95,7 @@ public class RecipeDetailsFragment extends Fragment{
 
     private boolean unSaveRecipe() {
 
-        boolean result = localDB.deleteEntry(recipe_title);
+        boolean result = localDB.deleteEntry(recipe.getName());
 
         if (result) {
             toastMessage("Recipe Unsaved Succesfully");
@@ -105,27 +109,13 @@ public class RecipeDetailsFragment extends Fragment{
 
     private void saveRecipe() {
 
-        Cursor data = onlineDB.getRecipe(recipe_title);
-
-        Recipe recipe;
-
-        while(data.moveToNext()) {
-            String recipeName = data.getString(1);
-            String recipeDescription = data.getString(2);
-            String recipeCategory = data.getString(3);
-            String recipeIngredients = data.getString(4);
-            String recipeDirections = data.getString(5);
-            String recipeImageID = data.getString(6);
-
-            recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
-
-            if (localDB.addData(recipe)) {
-                toastMessage("Recipe Saved Succesfully");
-            }
-            else {
-                toastMessage("An error occured");
-            }
+        if (localDB.addData(recipe)) {
+            toastMessage("Recipe Saved Succesfully");
         }
+        else {
+            toastMessage("An error occured");
+        }
+
     }
 
     // Loads recipe details (ingredients, directions)

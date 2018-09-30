@@ -37,12 +37,26 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public Cursor getRecipe(String recipeName)
+    public Recipe getRecipe(String recipeName)
     {
+        Recipe recipe = null;
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\"" ;
         Cursor data = db.rawQuery(query, null);
-        return data;
+
+
+        while(data.moveToNext()) {
+            String recipeNamee = data.getString(1);
+            String recipeDescription = data.getString(2);
+            String recipeCategory = data.getString(3);
+            String recipeIngredients = data.getString(4);
+            String recipeDirections = data.getString(5);
+            String recipeImageID = data.getString(6);
+
+            recipe = new Recipe(recipeNamee, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
+            return recipe;
+        }
+        return recipe;
     }
 
     public Cursor getData(){
