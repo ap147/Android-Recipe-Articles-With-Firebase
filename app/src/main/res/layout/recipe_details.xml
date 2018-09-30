@@ -35,11 +35,25 @@
                 app:civ_shadow_radius="10"
                 app:civ_shadow_color="@color/colorPrimary"/>
 
-            <Button
-                android:id="@+id/buttonSaveRecipe"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonSaveRecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Save" />
+
+                <Button
+                    android:id="@+id/buttonShareRecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Share" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -171,6 +185,7 @@
                     android:textSize="16sp" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
