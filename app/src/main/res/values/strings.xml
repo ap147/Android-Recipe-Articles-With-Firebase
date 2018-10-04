@@ -6,112 +6,14 @@
 
     <string name="pass_recipe_title">recipe_title</string>
     <string name="pass_recipe_image">recipe_image</string>
+    <string name="pass_recipe_type">recipe_type</string>
 
-    <string name="category_title_breakfast">Breakfast</string>
-    <string name="category_title_lunch">Lunch</string>
-    <string name="category_title_dinner">Dinner</string>
-    <string name="breakfast_title_1"> Oats </string>
-    <string name="breakfast_description_1">
-        An easy, balanced breakfast.</string>
+    <string name="recipe_type_online">online</string>
+    <string name="recipe_type_local">local</string>
 
-    <string name="breakfast_title_2"> Weetbix </string>
-    <string name="breakfast_description_2">
-        Weet-Bix is a high-fibre and low-sugar breakfast cereal biscuit.</string>
+    <string name="local_db">localRecipes</string>
+    <string name="online_db">onlineRecipes</string>
 
-    <string name="breakfast_title_3"> Pan Cakes </string>
-    <string name="breakfast_description_3">
-        Be strong and pick anything else other than this. </string>
-
-    <string name="breakfast_title_4"> Water </string>
-    <string name="breakfast_description_4">
-        Water is a transparent, tasteless, odorless,
-        and the fluids of most living organisms. </string>
-
-    <string name="breakfast_title_5"> Blueberry Smoothie </string>
-    <string name="breakfast_description_5">
-        Quick to make and packed with fiber, vitamin C, and antioxidants. </string>
-
-    <string name="lunch_title_1"> Date Scons </string>
-    <string name="lunch_description_1">
-        An easy, balanced breakfast.</string>
-
-    <string name="lunch_title_2"> Avocado on Toast  </string>
-    <string name="lunch_description_2">
-        Weet-Bix is a high-fibre and low-sugar breakfast cereal biscuit.</string>
-
-    <string name="lunch_title_3"> Guacamole </string>
-    <string name="lunch_description_3">
-        Be strong and pick anything else other than this. </string>
-
-    <string name="lunch_title_4"> Humus and Tomato on Crackers </string>
-    <string name="lunch_description_4">
-        Water is a transparent, tasteless, odorless,
-        and the fluids of most living organisms. </string>
-
-    <string name="lunch_title_5"> Mini Pizzas </string>
-    <string name="lunch_description_5">
-        Quick to make and packed with fiber, vitamin C, and antioxidants. </string>
-
-    <string name="dinner_title_1"> Thai Pumpkin Soup </string>
-    <string name="dinner_description_1">
-        An easy, balanced breakfast.</string>
-
-    <string name="dinner_title_2"> Cannelloni </string>
-    <string name="dinner_description_2">
-        Weet-Bix is a high-fibre and low-sugar breakfast cereal biscuit.</string>
-
-    <string name="dinner_title_3"> Lasagna </string>
-    <string name="dinner_description_3">
-        Be strong and pick anything else other than this. </string>
-
-    <string name="dinner_title_4"> Wraps </string>
-    <string name="dinner_description_4">
-        Water is a transparent, tasteless, odorless,
-        and the fluids of most living organisms. </string>
-
-    <string name="dinner_title_5"> Nachos </string>
-    <string name="dinner_description_5">
-        Quick to make and packed with fiber, vitamin C, and antioxidants. </string>
-
-    <string name="ingredientsTitle"> Ingredients </string>
-    <string name="directionsTitle"> Directions  </string>
-
-    <string name="direction1">
-        Cook noodles according to package directions; drain. Meanwhile, in a Dutch oven,
-        cook sausage, beef and onion over medium heat 8-10 minutes or until meat is no longer pink,
-        breaking up meat into crumbles. Add garlic; cook 1 minute. Drain.
-    </string>
-    <string name="direction2">
-        Stir in tomatoes, tomato paste, water, sugar, 3 tablespoons parsley, basil, fennel,
-        1/2 teaspoon salt and pepper; bring to a boil. Reduce heat; simmer, uncovered, 30 minutes, stirring occasionally.
-    </string>
-    <string name="direction3">
-        In a small bowl, mix egg, ricotta cheese, and remaining parsley and salt.
-    </string>
-    <string name="direction4">
-        Preheat oven to 375°. Spread 2 cups meat sauce into an ungreased 13x9-in. baking dish. Layer with three noodles and a third of the ricotta mixture.
-        Sprinkle with 1 cup mozzarella cheese and 2 tablespoons Parmesan cheese. Repeat layers twice. Top with remaining meat sauce and cheeses (dish will be full).
-    </string>
-    <string name="direction5">
-        Bake, covered, 25 minutes. Bake, uncovered, 25 minutes longer or until bubbly. Let stand 15 minutes before serving.
-    </string>
-
-    <string name="ingredient1">
-        • 1 medium onion
-    </string>
-    <string name="ingredient2">
-        • 2 tablespoons sugar
-    </string>
-    <string name="ingredient3">
-        • 4 cups cheese
-    </string>
-    <string name="ingredient4">
-        • 300g chili powder
-    </string>
-    <string name="ingredient5">
-        • 2 basil leafs
-    </string>
-
-
+    <string name="firebase_db">recipes</string>
 
 </resources>

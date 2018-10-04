@@ -74,7 +74,7 @@ public class fragment_local_recipe_list extends Fragment {
         Intent intent = new Intent(getActivity(), DisplayRecipe.class);
         Bundle recipe_details = new Bundle();
         recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
-        recipe_details.putString("recipe_type", "local");
+        recipe_details.putString(getString(R.string.pass_recipe_type), getString(R.string.recipe_type_local));
         recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
         intent.putExtras(recipe_details);
         startActivity(intent);

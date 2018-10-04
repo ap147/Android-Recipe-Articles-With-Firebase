@@ -29,7 +29,7 @@ public class RecipeDetailsFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // This may not be good practice, https://stackoverflow.com/questions/11387740/where-how-to-getintent-getextras-in-an-android-fragment
-        int recipe_image = getActivity().getIntent().getExtras().getInt("recipe_image");
+        int recipe_image = getActivity().getIntent().getExtras().getInt(getString(R.string.pass_recipe_image));
         ImageView img = getView().findViewById(R.id.imageView);
         img.setImageResource(recipe_image);
 
@@ -39,15 +39,15 @@ public class RecipeDetailsFragment extends Fragment{
     private void initilize() {
         Bundle bundle = getActivity().getIntent().getExtras();
         String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
-        String recipe_type = bundle.getString("recipe_type");
+        String recipe_type = bundle.getString(getString(R.string.pass_recipe_type));
 
-        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
+        localDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.local_db));
 
-        if (recipe_type.equals("local")) {
+        if (recipe_type.equals(getString(R.string.recipe_type_local))) {
             recipe = localDB.getRecipe(recipe_title);
         }
         else {
-            onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), "onlineRecipes");
+            onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.online_db));
             recipe = onlineDB.getRecipe(recipe_title);
         }
 

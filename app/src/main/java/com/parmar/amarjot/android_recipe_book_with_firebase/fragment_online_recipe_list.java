@@ -44,7 +44,7 @@ public class fragment_online_recipe_list extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), "onlineRecipes");
+        onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.online_db));
         recipe_title = new String[6];
         recipe_description = new String[6];
         recipe_image_id = new Integer[6];
@@ -72,7 +72,7 @@ public class fragment_online_recipe_list extends Fragment {
         onlineDB.clearDatabase();
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("recipes");
+        DatabaseReference ref = database.getReference(getString(R.string.firebase_db));
         // Attach a listener to read the data at our posts reference
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -113,7 +113,7 @@ public class fragment_online_recipe_list extends Fragment {
         Intent intent = new Intent(getActivity(), DisplayRecipe.class);
         Bundle recipe_details = new Bundle();
         recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
-        recipe_details.putString("recipe_type", "online");
+        recipe_details.putString(getString(R.string.pass_recipe_type), getString(R.string.recipe_type_online) );
         recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
         intent.putExtras(recipe_details);
         startActivity(intent);
