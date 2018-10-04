@@ -122,7 +122,6 @@ public class fragment_online_recipe_list extends Fragment {
 
     protected void loadArrays () {
         Cursor data = onlineDB.getRecipes();
-        ArrayList<String> listData = new ArrayList<>();
 
         int count = 0;
         while (data.moveToNext()) {

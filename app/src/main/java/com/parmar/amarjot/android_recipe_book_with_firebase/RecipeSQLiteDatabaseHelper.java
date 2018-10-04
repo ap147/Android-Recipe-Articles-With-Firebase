@@ -3,6 +3,7 @@ package com.parmar.amarjot.android_recipe_book_with_firebase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -115,6 +116,14 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return true;
+    }
+
+    public int getRecipeCount() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        int recipeCount = (int) DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+
+        return recipeCount;
     }
 
     public void clearDatabase() {
