@@ -1,5 +1,6 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,16 +74,34 @@ public class MainActivity extends AppCompatActivity {
         String recipeData = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (recipeData != null) {
 
-            String recipeName = recipeData;
-            String recipeDescription = recipeData;
-            String recipeCategory= recipeData;
-            String recipeArticle = recipeData;
-            String recipeImageID= "2131165277";
+            String data [] = recipeData.split("#");
 
-            Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
+            if(data.length == 4)
+            {
+                String recipeName = data[0];
+                String recipeDescription = data[1];
+                String recipeCategory= data[2];
+                String recipeArticle = data[3];
+                String recipeImageID= "2131165277";
 
-            RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, "localRecipes");
-            localDB.addRecipe(newRecipe);
+                Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
+
+                RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, "localRecipes");
+                localDB.addRecipe(newRecipe);
+            }
+            else {
+                toastMessage("Unable to add recipe.");
+            }
+
         }
+    }
+
+    private void toastMessage(String msg){
+
+        Context context = getApplicationContext();
+        CharSequence text = msg;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
