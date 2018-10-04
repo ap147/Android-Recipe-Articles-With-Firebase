@@ -89,11 +89,10 @@ public class fragment_online_recipe_list extends Fragment {
                         String recipeName = obj.getString("name");
                         String recipeDescription = obj.getString("description");
                         String recipeCategory = obj.getString("category");
-                        String recipeIngredients = obj.getString("name");
-                        String recipeDirections = obj.getString("name");
+                        String recipeArticle = obj.getString("name");
                         String recipeImageID = obj.getString("imageID");
 
-                        Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
+                        Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
                         onlineDB.addRecipe(recipe);
                         setupList();
 
@@ -130,8 +129,8 @@ public class fragment_online_recipe_list extends Fragment {
             //then add it to the ArrayList
             recipe_title[count] = data.getString(1);
             recipe_description[count] = data.getString(2);
-            recipe_image_id[count] = Integer.parseInt(data.getString(6));
-            System.out.println(recipe_title[count]);
+            recipe_image_id[count] = Integer.parseInt(data.getString(5));
+            System.out.println("loading :" + recipe_title[count]);
             count++;
         }
     }
