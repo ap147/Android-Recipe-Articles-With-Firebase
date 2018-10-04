@@ -2,7 +2,6 @@ package com.parmar.amarjot.android_recipe_book_with_firebase;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +14,8 @@ import android.widget.Toast;
 
 public class RecipeDetailsFragment extends Fragment{
 
-    private LocalSQLiteDatabaseHelper localDB;
-    private OnlineSQLiteDatabaseHelper onlineDB;
+    private RecipeSQLiteDatabaseHelper localDB;
+    private RecipeSQLiteDatabaseHelper onlineDB;
 
     private Recipe recipe;
 
@@ -40,22 +39,21 @@ public class RecipeDetailsFragment extends Fragment{
     private void initilize() {
         Bundle bundle = getActivity().getIntent().getExtras();
         String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
-        localDB = new LocalSQLiteDatabaseHelper(getContext());
-        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
+        onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), "onlineRecipes");
 
         recipe = onlineDB.getRecipe(recipe_title);
 
         setRecipeDetails();
         setupSaveButton();
+        setupShareButton();
     }
 
     private void setupSaveButton() {
 
         final Button saveRecipeButton = getView().findViewById(R.id.buttonSaveRecipe);
-        final Button shareRecipeButton = getView().findViewById(R.id.buttonShareRecipe);
-
-
-        if (localDB.recipeExists(recipe.getName())) {
+        String recipeName = recipe.getName();
+        if (localDB.recipeExists(recipeName)) {
             saveRecipeButton.setText("Saved");
         }
 
@@ -72,13 +70,17 @@ public class RecipeDetailsFragment extends Fragment{
                 }
             }
         });
+    }
+
+    private void setupShareButton() {
+
+        final Button shareRecipeButton = getView().findViewById(R.id.buttonShareRecipe);
 
         shareRecipeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shareRecipe();
             }
         });
-
     }
 
     private void shareRecipe() {
@@ -93,6 +95,16 @@ public class RecipeDetailsFragment extends Fragment{
         startActivity(Intent.createChooser(sendIntent, "Share using"));
     }
 
+    private void saveRecipe() {
+
+        if (localDB.addRecipe(recipe)) {
+            toastMessage("Recipe Saved Succesfully");
+        }
+        else {
+            toastMessage("An error occured");
+        }
+    }
+
     private boolean unSaveRecipe() {
 
         boolean result = localDB.deleteRecipe(recipe.getName());
@@ -105,17 +117,6 @@ public class RecipeDetailsFragment extends Fragment{
         }
 
         return result;
-    }
-
-    private void saveRecipe() {
-
-        if (localDB.addRecipe(recipe)) {
-            toastMessage("Recipe Saved Succesfully");
-        }
-        else {
-            toastMessage("An error occured");
-        }
-
     }
 
     // Loads recipe details (ingredients, directions)
@@ -146,7 +147,7 @@ public class RecipeDetailsFragment extends Fragment{
         direction_5.setText(getString(R.string.direction5));
     }
 
-    public void toastMessage(String msg){
+    private void toastMessage(String msg){
 
         Context context = getContext().getApplicationContext();
         CharSequence text = msg;

@@ -30,7 +30,7 @@ public class fragment_online_recipe_list extends Fragment {
     String [] recipe_description;
     Integer [] recipe_image_id;
 
-    private OnlineSQLiteDatabaseHelper onlineDB;
+    private RecipeSQLiteDatabaseHelper onlineDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +44,7 @@ public class fragment_online_recipe_list extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        onlineDB = new OnlineSQLiteDatabaseHelper(getContext());
+        onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), "onlineRecipes");
         recipe_title = new String[6];
         recipe_description = new String[6];
         recipe_image_id = new Integer[6];

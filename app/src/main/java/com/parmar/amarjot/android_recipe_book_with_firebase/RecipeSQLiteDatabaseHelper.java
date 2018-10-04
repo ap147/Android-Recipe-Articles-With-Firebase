@@ -6,28 +6,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
+public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TABLE_NAME = "OnlineRecipes";
+    private String TABLE_NAME;
     private static final String COL0 = "ID";
-    private static final String COL1 = "recipeName";
-    private static final String COL2 = "recipeDescription";
-    private static final String COL3 = "recipeCategory";
-    private static final String COL4 = "recipeIngredients";
-    private static final String COL5 = "recipeDirections";
-    private static final String COL6 = "recipeImageID";
+    private static final String COL1 = "name";
+    private static final String COL2 = "description";
+    private static final String COL3 = "category";
+    private static final String COL4 = "ingredients";
+    private static final String COL5 = "directions";
+    private static final String COL6 = "imageID";
 
-    public OnlineSQLiteDatabaseHelper(Context context) {
+    public RecipeSQLiteDatabaseHelper(Context context, String _tableName) {
 
-        super(context, TABLE_NAME, null, 1);
+        super(context, _tableName, null, 1);
+        TABLE_NAME = _tableName;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         String createTable = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " " +  COL1 + " TEXT," + " " +  COL2 + " TEXT," + " " +  COL3 +  " TEXT," + " " +
-                COL4 + " TEXT," + " " +  COL5 + " TEXT," + " " +  COL6 + " TEXT)";
+                " " + COL1 + " TEXT," + " " + COL2 + " TEXT," + " " + COL3 + " TEXT," + " " +
+                COL4 + " TEXT," + " " + COL5 + " TEXT," + " " + COL6 + " TEXT)";
         sqLiteDatabase.execSQL(createTable);
     }
 
@@ -53,21 +54,31 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
 
         if (result == -1) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
-    public Recipe getRecipe(String recipeName)
-    {
+    public boolean deleteRecipe(String recipeName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, COL1 + "=\"" + recipeName + "\"", null);
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Recipe getRecipe(String recipeName) {
         Recipe recipe = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\"" ;
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" + "\"" + recipeName + "\"";
         Cursor data = db.rawQuery(query, null);
 
 
-        while(data.moveToNext()) {
+        while (data.moveToNext()) {
             String recipeNamee = data.getString(1);
             String recipeDescription = data.getString(2);
             String recipeCategory = data.getString(3);
@@ -81,13 +92,30 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
         return recipe;
     }
 
-    public Cursor getRecipes(){
+    public Cursor getRecipes() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor recipes = db.rawQuery(query, null);
         return recipes;
     }
 
+    public boolean recipeExists(String recipeName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT EXISTS(SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" + "\"" + recipeName + "\")";
+        Cursor data = db.rawQuery(query, null);
+
+        while (data.moveToNext()) {
+            int dataExists = data.getInt(0);
+            if (dataExists == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return true;
+    }
 
     public void clearDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
