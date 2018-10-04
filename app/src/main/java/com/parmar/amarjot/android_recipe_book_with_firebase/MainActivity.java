@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             String data [] = recipeData.split("#");
 
-            if(data.length == 4)
+            if(data.length == 4 & !recipeExists(data[0]))
             {
                 String recipeName = data[0];
                 String recipeDescription = data[1];
@@ -94,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private boolean recipeExists(String recipe_name) {
+
+        // this is prob bad (SQL injection :P )
+        RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, "localRecipes");
+        return localDB.recipeExists(recipe_name);
     }
 
     private void toastMessage(String msg){
