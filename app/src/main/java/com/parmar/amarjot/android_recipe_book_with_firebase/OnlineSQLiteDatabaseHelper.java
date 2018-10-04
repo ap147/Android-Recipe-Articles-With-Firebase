@@ -37,6 +37,28 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    public boolean addRecipe(Recipe recipe) {
+
+        Recipe addRecipe = recipe;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL1, addRecipe.getName());
+        contentValues.put(COL2, addRecipe.getDescription());
+        contentValues.put(COL3, addRecipe.getCategory());
+        contentValues.put(COL4, addRecipe.getIngredients());
+        contentValues.put(COL5, addRecipe.getDirections());
+        contentValues.put(COL6, addRecipe.getImageID());
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long result = db.insert(TABLE_NAME, null, contentValues);
+
+        if (result == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public Recipe getRecipe(String recipeName)
     {
         Recipe recipe = null;
@@ -59,34 +81,13 @@ public class OnlineSQLiteDatabaseHelper extends SQLiteOpenHelper {
         return recipe;
     }
 
-    public Cursor getData(){
+    public Cursor getRecipes(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
-        Cursor data = db.rawQuery(query, null);
-        return data;
+        Cursor recipes = db.rawQuery(query, null);
+        return recipes;
     }
 
-    public boolean addData(Recipe recipe) {
-
-        Recipe addRecipe = recipe;
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL1, addRecipe.getName());
-        contentValues.put(COL2, addRecipe.getDescription());
-        contentValues.put(COL3, addRecipe.getCategory());
-        contentValues.put(COL4, addRecipe.getIngredients());
-        contentValues.put(COL5, addRecipe.getDirections());
-        contentValues.put(COL6, addRecipe.getImageID());
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        long result = db.insert(TABLE_NAME, null, contentValues);
-
-        if (result == -1) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
 
     public void clearDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();

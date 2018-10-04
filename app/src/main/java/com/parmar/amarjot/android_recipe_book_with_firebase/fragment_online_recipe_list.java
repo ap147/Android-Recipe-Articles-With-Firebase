@@ -94,7 +94,7 @@ public class fragment_online_recipe_list extends Fragment {
                         String recipeImageID = obj.getString("imageID");
 
                         Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
-                        onlineDB.addData(recipe);
+                        onlineDB.addRecipe(recipe);
                         setupList();
 
                     } catch (JSONException e) {
@@ -121,7 +121,7 @@ public class fragment_online_recipe_list extends Fragment {
     }
 
     protected void loadArrays () {
-        Cursor data = onlineDB.getData();
+        Cursor data = onlineDB.getRecipes();
         ArrayList<String> listData = new ArrayList<>();
 
         int count = 0;

@@ -95,7 +95,7 @@ public class RecipeDetailsFragment extends Fragment{
 
     private boolean unSaveRecipe() {
 
-        boolean result = localDB.deleteEntry(recipe.getName());
+        boolean result = localDB.deleteRecipe(recipe.getName());
 
         if (result) {
             toastMessage("Recipe Unsaved Succesfully");
@@ -109,7 +109,7 @@ public class RecipeDetailsFragment extends Fragment{
 
     private void saveRecipe() {
 
-        if (localDB.addData(recipe)) {
+        if (localDB.addRecipe(recipe)) {
             toastMessage("Recipe Saved Succesfully");
         }
         else {

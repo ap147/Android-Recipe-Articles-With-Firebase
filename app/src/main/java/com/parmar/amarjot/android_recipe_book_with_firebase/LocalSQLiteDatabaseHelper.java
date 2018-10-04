@@ -37,40 +37,7 @@ public class LocalSQLiteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public Cursor getData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME;
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
-
-    public Cursor getRecipe(String recipeName) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\"" ;
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
-
-    public boolean recipeExists(String recipeName) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT EXISTS(SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\")";
-        Cursor data = db.rawQuery(query, null);
-
-        while(data.moveToNext()) {
-            int dataExists = data.getInt(0);
-            if (dataExists == 0) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        return true;
-    }
-
-    public boolean addData(Recipe recipe) {
+    public boolean addRecipe(Recipe recipe) {
 
         Recipe addRecipe = recipe;
         ContentValues contentValues = new ContentValues();
@@ -92,7 +59,7 @@ public class LocalSQLiteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteEntry(String recipeName) {
+    public boolean deleteRecipe(String recipeName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, COL1 + "=\"" + recipeName + "\"", null);
@@ -105,9 +72,51 @@ public class LocalSQLiteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void clearDatabase() {
+    public Recipe getRecipe(String recipeName)
+    {
+        Recipe recipe = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
-        db.execSQL(clearDBQuery);
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\"" ;
+        Cursor data = db.rawQuery(query, null);
+
+
+        while(data.moveToNext()) {
+            String recipeNamee = data.getString(1);
+            String recipeDescription = data.getString(2);
+            String recipeCategory = data.getString(3);
+            String recipeIngredients = data.getString(4);
+            String recipeDirections = data.getString(5);
+            String recipeImageID = data.getString(6);
+
+            recipe = new Recipe(recipeNamee, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
+            return recipe;
+        }
+        return recipe;
     }
+
+    public Cursor getRecipes(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME;
+        Cursor recipes = db.rawQuery(query, null);
+        return recipes;
+    }
+
+    public boolean recipeExists(String recipeName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT EXISTS(SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + "=" +"\""+ recipeName +"\")";
+        Cursor data = db.rawQuery(query, null);
+
+        while(data.moveToNext()) {
+            int dataExists = data.getInt(0);
+            if (dataExists == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
 }

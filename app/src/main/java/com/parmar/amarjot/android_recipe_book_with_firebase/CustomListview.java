@@ -19,13 +19,13 @@ public class CustomListview extends ArrayAdapter <String>{
 
     private Activity context;
 
-    public CustomListview(@NonNull Context context, String [] breakfastname, String [] breakfastdescription, Integer [] breakfastid) {
-        super(context, R.layout.custom_listview_layout, breakfastname);
+    public CustomListview(@NonNull Context context, String [] _recipeName, String [] _recipeDescription, Integer [] _recipeID) {
+        super(context, R.layout.custom_listview_layout, _recipeName);
 
         this.context= (Activity) context;
-        this.recipe_title=breakfastname;
-        this.recipe_description=breakfastdescription;
-        this.recipe_image_id=breakfastid;
+        this.recipe_title=_recipeName;
+        this.recipe_description=_recipeDescription;
+        this.recipe_image_id=_recipeID;
     }
 
     @NonNull
