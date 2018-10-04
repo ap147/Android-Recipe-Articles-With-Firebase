@@ -65,8 +65,19 @@ public class fragment_local_recipe_list extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //displayRecipeDetails(i);
+                displayRecipeDetails(i);
             }
         });
+    }
+
+    protected void displayRecipeDetails(int position) {
+        Intent intent = new Intent(getActivity(), DisplayRecipe.class);
+        Bundle recipe_details = new Bundle();
+        recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
+        recipe_details.putString("recipe_type", "online");
+        recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
+        intent.putExtras(recipe_details);
+        startActivity(intent);
+        getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
     }
 }
