@@ -39,10 +39,17 @@ public class RecipeDetailsFragment extends Fragment{
     private void initilize() {
         Bundle bundle = getActivity().getIntent().getExtras();
         String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
-        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
-        onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), "onlineRecipes");
+        String recipe_type = bundle.getString("recipe_type");
 
-        recipe = onlineDB.getRecipe(recipe_title);
+        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
+
+        if (recipe_type.equals("local")) {
+            recipe = localDB.getRecipe(recipe_title);
+        }
+        else {
+            onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), "onlineRecipes");
+            recipe = onlineDB.getRecipe(recipe_title);
+        }
 
         setRecipeDetails();
         setupSaveButton();

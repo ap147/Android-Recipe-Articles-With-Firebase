@@ -87,7 +87,7 @@ public class fragment_online_recipe_list extends Fragment {
                         System.out.println("- JSON OBJECT : " + obj.toString());
 
                         String recipeName = obj.getString("name");
-                        String recipeDescription = obj.getString("name");
+                        String recipeDescription = obj.getString("description");
                         String recipeCategory = obj.getString("category");
                         String recipeIngredients = obj.getString("name");
                         String recipeDirections = obj.getString("name");
@@ -114,6 +114,7 @@ public class fragment_online_recipe_list extends Fragment {
         Intent intent = new Intent(getActivity(), DisplayRecipe.class);
         Bundle recipe_details = new Bundle();
         recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
+        recipe_details.putString("recipe_type", "online");
         recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
         intent.putExtras(recipe_details);
         startActivity(intent);
