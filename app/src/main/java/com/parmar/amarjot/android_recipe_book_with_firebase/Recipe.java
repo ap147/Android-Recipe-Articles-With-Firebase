@@ -5,16 +5,14 @@ public class Recipe {
     private  String name;
     private  String description;
     private  String category;
-    private  String ingredients;
-    private  String directions;
+    private  String article;
     private  String imageID;
 
-    public Recipe(String _name, String _description, String _category, String _ingredients, String _directions, String _imageID) {
+    public Recipe(String _name, String _description, String _category, String _article, String _imageID) {
         name = _name;
         description = _description;
         category = _category;
-        ingredients = _ingredients;
-        directions = _directions;
+        article = _article;
         imageID = _imageID;
     }
 
@@ -30,12 +28,8 @@ public class Recipe {
         return category;
     }
 
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public String getDirections() {
-        return directions;
+    public String getArticle() {
+        return article;
     }
 
     public String getImageID() {

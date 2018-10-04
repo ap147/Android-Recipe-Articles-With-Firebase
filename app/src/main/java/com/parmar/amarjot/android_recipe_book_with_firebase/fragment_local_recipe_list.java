@@ -51,7 +51,7 @@ public class fragment_local_recipe_list extends Fragment {
             //then add it to the ArrayList
             recipe_title[count] = data.getString(1);
             recipe_description[count] = data.getString(2);
-            recipe_image_id[count] = Integer.parseInt(data.getString(6));
+            recipe_image_id[count] = Integer.parseInt(data.getString(5));
             System.out.println(recipe_title[count]);
             count++;
         }

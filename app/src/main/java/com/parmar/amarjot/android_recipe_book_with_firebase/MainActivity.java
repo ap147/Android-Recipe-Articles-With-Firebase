@@ -54,11 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
-                try {
-                    handleIncomingRecipe(intent); // Handle text being sent
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                handleIncomingRecipe(intent); // Handle text being sent
             }
         }
 
@@ -72,20 +68,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void handleIncomingRecipe(Intent intent) throws JSONException {
+    private void handleIncomingRecipe(Intent intent) {
         String recipeData = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (recipeData != null) {
-            //JSONObject recipe = new JSONObject(recipeData);
 
-            String recipeName = recipeData;//recipe.getString("name");
+            String recipeName = recipeData;
             String recipeDescription = recipeData;
             String recipeCategory= recipeData;
-            String recipeIngredients = recipeData;
-            String recipeDirections= recipeData;
+            String recipeArticle = recipeData;
             String recipeImageID= "2131165277";
 
-            //String _name, String _description, String _category, String _ingredients, String _directions, String _imageID
-            Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeIngredients, recipeDirections, recipeImageID);
+            Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
 
             RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, "localRecipes");
             localDB.addRecipe(newRecipe);
