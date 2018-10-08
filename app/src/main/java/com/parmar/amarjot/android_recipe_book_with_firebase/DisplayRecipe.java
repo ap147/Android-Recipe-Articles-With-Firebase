@@ -44,10 +44,9 @@ public class DisplayRecipe extends AppCompatActivity{
         toolbar.setTitle(recipe_title);
         setSupportActionBar(toolbar);
 
-
-//        // User can click this to see options (Breakfast, Lunch, Dinner)
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_white_24px);
     }
 
     @Override
