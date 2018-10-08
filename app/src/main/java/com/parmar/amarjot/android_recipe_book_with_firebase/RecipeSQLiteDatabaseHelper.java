@@ -132,14 +132,6 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public int getRecipeCount() {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        int recipeCount = (int) DatabaseUtils.queryNumEntries(db, TABLE_NAME);
-
-        return recipeCount;
-    }
-
     public void clearDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
         String clearDBQuery = "DELETE FROM "+TABLE_NAME;
