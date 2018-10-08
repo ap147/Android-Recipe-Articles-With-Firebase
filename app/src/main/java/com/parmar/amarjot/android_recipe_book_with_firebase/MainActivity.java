@@ -2,12 +2,15 @@ package com.parmar.amarjot.android_recipe_book_with_firebase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -31,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     System.out.println("Home Button Clicked");
                     fragment_local_recipe_list localFragment = new fragment_local_recipe_list();
-                    fragmentTransaction.replace(R.id.fragmentLayout_main, localFragment);
+                    fragmentTransaction.replace(R.id.list_frame, localFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_notifications:
                     System.out.println("Online Button Clicked");
                     fragment_online_recipe_list onlineFragment = new fragment_online_recipe_list();
-                    fragmentTransaction.replace(R.id.fragmentLayout_main, onlineFragment);
+                    fragmentTransaction.replace(R.id.list_frame, onlineFragment);
                     fragmentTransaction.commit();
                     return true;
             }
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupActionbar();
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
@@ -66,8 +70,14 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment_local_recipe_list fragment = new fragment_local_recipe_list();
-        fragmentTransaction.add(R.id.fragmentLayout_main, fragment);
+        fragmentTransaction.add(R.id.list_frame, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void setupActionbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
     }
 
     private void handleIncomingRecipe(Intent intent) {

@@ -1,11 +1,13 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class DisplayRecipe extends AppCompatActivity{
@@ -36,8 +38,16 @@ public class DisplayRecipe extends AppCompatActivity{
         Bundle bundle = getIntent().getExtras();
         String recipe_title = bundle.getString(getString(R.string.pass_recipe_title));
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitle(recipe_title);
+        setSupportActionBar(toolbar);
+
+
+//        // User can click this to see options (Breakfast, Lunch, Dinner)
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle(recipe_title);
+        actionbar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
