@@ -90,11 +90,28 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
         return recipe;
     }
 
-    public Cursor getRecipes() {
+    public Cursor getRecipes(String filter) {
+
+        Cursor recipes = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME;
-        Cursor recipes = db.rawQuery(query, null);
+        String query = null;
+
+        switch (filter) {
+            case "all":
+                query = "SELECT * FROM " + TABLE_NAME;
+                break;
+            case "vegetarian":
+                query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL3 + "=" +"\"" + filter + "\""+
+                        " OR " + COL3 + "=" +"\"" + "vegan" + "\" ";
+                break;
+            case "vegan":
+                query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL3 + "=" +"\"" + filter + "\" ";
+                break;
+        }
+
+        recipes = db.rawQuery(query, null);
         return recipes;
+
     }
 
     public boolean recipeExists(String recipeName) {

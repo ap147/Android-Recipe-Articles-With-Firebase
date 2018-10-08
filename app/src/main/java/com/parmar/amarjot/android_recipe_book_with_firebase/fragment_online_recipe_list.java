@@ -45,10 +45,6 @@ public class fragment_online_recipe_list extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.online_db));
-        recipe_title = new String[6];
-        recipe_description = new String[6];
-        recipe_image_id = new Integer[6];
-
         pullDataFromFirebase();
     }
 
@@ -121,7 +117,13 @@ public class fragment_online_recipe_list extends Fragment {
     }
 
     protected void loadArrays () {
-        Cursor data = onlineDB.getRecipes();
+        Cursor data = onlineDB.getRecipes("vegetarian");
+
+        int amountOfRecipes = data.getCount();
+        System.out.println("------------------------ amount of recipes" + amountOfRecipes);
+        recipe_title = new String[amountOfRecipes];
+        recipe_description = new String[amountOfRecipes];
+        recipe_image_id = new Integer[amountOfRecipes];
 
         int count = 0;
         while (data.moveToNext()) {
