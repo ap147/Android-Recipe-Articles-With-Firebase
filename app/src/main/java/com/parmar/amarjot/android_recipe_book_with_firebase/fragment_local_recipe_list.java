@@ -34,7 +34,7 @@ public class fragment_local_recipe_list extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
 
-        pullDataFromDB("vegetarian");
+        pullDataFromDB("All");//Vegetarian");
         setupList();
     }
 
@@ -45,7 +45,7 @@ public class fragment_local_recipe_list extends Fragment {
         int count;
 
         switch (filter) {
-            case "all":
+            case "All":
                 System.out.println("Pulling all recipes");
 
                 data = localDB.getRecipes(filter);
@@ -66,8 +66,7 @@ public class fragment_local_recipe_list extends Fragment {
                 }
                 break;
 
-            case "vegetarian":
-                System.out.println("Pulling vegetarian recipes");
+            case "Vegetarian":
                 data = localDB.getRecipes(filter);
                 amountOfRecipes = data.getCount();
                 recipe_title = new String[amountOfRecipes];
@@ -86,7 +85,7 @@ public class fragment_local_recipe_list extends Fragment {
                 }
                 break;
 
-            case "vegan":
+            case "Vegan":
                 System.out.println("Pulling vegan recipes");
                 data = localDB.getRecipes(filter);
                 amountOfRecipes = data.getCount();
@@ -130,5 +129,10 @@ public class fragment_local_recipe_list extends Fragment {
         intent.putExtras(recipe_details);
         startActivity(intent);
         getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
+    }
+
+    public void sayHello(String filter){
+        pullDataFromDB(filter);
+        setupList();
     }
 }

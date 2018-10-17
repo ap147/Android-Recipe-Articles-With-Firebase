@@ -97,21 +97,20 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
         String query = null;
 
         switch (filter) {
-            case "all":
+            case "All":
                 query = "SELECT * FROM " + TABLE_NAME;
                 break;
-            case "vegetarian":
+            case "Vegetarian":
                 query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL3 + "=" +"\"" + filter + "\""+
-                        " OR " + COL3 + "=" +"\"" + "vegan" + "\" ";
+                        " OR " + COL3 + "=" +"\"" + "Vegan" + "\" ";
                 break;
-            case "vegan":
+            case "Vegan":
                 query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL3 + "=" +"\"" + filter + "\" ";
                 break;
         }
 
         recipes = db.rawQuery(query, null);
         return recipes;
-
     }
 
     public boolean recipeExists(String recipeName) {

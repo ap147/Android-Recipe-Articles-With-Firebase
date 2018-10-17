@@ -31,7 +31,7 @@ public class RecipeDetailsFragment extends Fragment{
         // This may not be good practice, https://stackoverflow.com/questions/11387740/where-how-to-getintent-getextras-in-an-android-fragment
         int recipe_image = getActivity().getIntent().getExtras().getInt(getString(R.string.pass_recipe_image));
         ImageView img = getView().findViewById(R.id.imageView);
-        img.setImageResource(recipe_image);
+        img.setImageResource(R.drawable.canaloni);//recipe_image);
 
         initilize();
     }

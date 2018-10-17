@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,8 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class fragment_online_recipe_list extends Fragment {
 
@@ -31,6 +28,8 @@ public class fragment_online_recipe_list extends Fragment {
     Integer [] recipe_image_id;
 
     private RecipeSQLiteDatabaseHelper onlineDB;
+
+    String currentFilter = "All";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,9 +47,9 @@ public class fragment_online_recipe_list extends Fragment {
         pullDataFromFirebase();
     }
 
-    protected void setupList () {
+    protected void setupList (String filter) {
 
-        loadArrays();
+        loadArrays(filter);
 
         list= getView().findViewById(R.id.listView);
         CustomListview customListview = new CustomListview(getContext(), recipe_title, recipe_description, recipe_image_id);
@@ -90,7 +89,7 @@ public class fragment_online_recipe_list extends Fragment {
 
                         Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
                         onlineDB.addRecipe(recipe);
-                        setupList();
+                        setupList(currentFilter);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -116,8 +115,8 @@ public class fragment_online_recipe_list extends Fragment {
         getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
-    protected void loadArrays () {
-        Cursor data = onlineDB.getRecipes("vegetarian");
+    protected void loadArrays(String filter) {
+        Cursor data = onlineDB.getRecipes(filter);
 
         int amountOfRecipes = data.getCount();
         System.out.println("------------------------ amount of recipes" + amountOfRecipes);

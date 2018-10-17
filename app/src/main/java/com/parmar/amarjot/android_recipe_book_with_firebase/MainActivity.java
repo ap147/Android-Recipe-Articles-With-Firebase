@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    String currentFragment = "";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    System.out.println("Home Button Clicked");
                     fragment_local_recipe_list localFragment = new fragment_local_recipe_list();
                     fragmentTransaction.replace(R.id.list_frame, localFragment);
                     fragmentTransaction.commit();
+                    currentFragment = "local";
                     return true;
                 case R.id.navigation_notifications:
-                    System.out.println("Online Button Clicked");
                     fragment_online_recipe_list onlineFragment = new fragment_online_recipe_list();
                     fragmentTransaction.replace(R.id.list_frame, onlineFragment);
                     fragmentTransaction.commit();
+                    currentFragment = "online";
                     return true;
             }
             return false;
@@ -74,14 +75,8 @@ public class MainActivity extends AppCompatActivity {
         fragment_local_recipe_list fragment = new fragment_local_recipe_list();
         fragmentTransaction.add(R.id.list_frame, fragment);
         fragmentTransaction.commit();
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-       // getMenuInflater().inflate(R.menu.filter, menu);
-
-        return super.onCreateOptionsMenu(menu);
+        currentFragment = "local";
     }
 
     private void setupActionbar() {
@@ -100,8 +95,19 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 toastMessage(category[position]);
                 String selectedCategory = category[position];
-                local
 
+                FragmentManager fm = getSupportFragmentManager();
+
+                switch (currentFragment){
+                    case  "local":
+                        fragment_local_recipe_list fragment = (fragment_local_recipe_list)fm.findFragmentById(R.id.list_frame);
+                        fragment.sayHello(selectedCategory);
+                        break;
+                    case "online":
+                        fragment_online_recipe_list fragmentx = (fragment_online_recipe_list)fm.findFragmentById(R.id.list_frame);
+                        fragmentx.setupList(selectedCategory);
+                        break;
+                }
             }
 
             @Override
