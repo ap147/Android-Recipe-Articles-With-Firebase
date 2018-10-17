@@ -8,14 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -72,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         fragment_local_recipe_list fragment = new fragment_local_recipe_list();
         fragmentTransaction.add(R.id.list_frame, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.filter, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void setupActionbar() {
@@ -102,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             else {
                 toastMessage("Unable to add recipe.");
             }
-
         }
     }
 

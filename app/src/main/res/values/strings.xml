@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe Book</string>
+    <string name="app_name">Recipe Articles</string>
     <string name="title_home">Local</string>
     <string name="title_notifications">Online</string>
 
