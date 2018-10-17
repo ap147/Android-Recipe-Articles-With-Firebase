@@ -24,6 +24,7 @@ public class fragment_local_recipe_list extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_local_recipe_list, container, false);
     }
@@ -32,9 +33,9 @@ public class fragment_local_recipe_list extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
-
-        pullDataFromDB("All");//Vegetarian");
+        MainActivity activity = (MainActivity) getActivity();
+        String filter = activity.getCurrentFilter();
+        pullDataFromDB(filter);
         setupList();
     }
 
@@ -43,6 +44,8 @@ public class fragment_local_recipe_list extends Fragment {
         Cursor data;
         int amountOfRecipes;
         int count;
+
+        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
 
         switch (filter) {
             case "All":

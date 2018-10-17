@@ -29,7 +29,7 @@ public class fragment_online_recipe_list extends Fragment {
 
     private RecipeSQLiteDatabaseHelper onlineDB;
 
-    String currentFilter = "All";
+    String currentFilter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +44,8 @@ public class fragment_online_recipe_list extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.online_db));
+        MainActivity activity = (MainActivity) getActivity();
+        currentFilter = activity.getCurrentFilter();
         pullDataFromFirebase();
     }
 

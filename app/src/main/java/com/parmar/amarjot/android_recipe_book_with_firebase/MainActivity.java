@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     String currentFragment = "";
+    String currentFilter = "All";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 toastMessage(category[position]);
                 String selectedCategory = category[position];
-
+                currentFilter = selectedCategory;
                 FragmentManager fm = getSupportFragmentManager();
 
                 switch (currentFragment){
@@ -157,4 +157,10 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+    public String getCurrentFilter() {
+        return currentFilter;
+    }
+
+
 }
