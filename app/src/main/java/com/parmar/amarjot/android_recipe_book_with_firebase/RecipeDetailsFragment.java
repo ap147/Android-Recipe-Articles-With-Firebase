@@ -128,10 +128,10 @@ public class RecipeDetailsFragment extends Fragment{
     // Loads recipe details (ingredients, directions)
     private void setRecipeDetails() {
 
-        TextView category = getView().findViewById(R.id.labelCategory);
+        TextView category = getView().findViewById(R.id.content_category);
         category.setText(recipe.getCategory());
 
-        TextView article = getView().findViewById(R.id.labelArticle);
+        TextView article = getView().findViewById(R.id.content_article);
         article.setText(recipe.getArticle());
     }
 

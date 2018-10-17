@@ -56,16 +56,38 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/label_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/labelCategory"
+                android:text="@string/label_category"
+                android:textColor="@color/colorSecondary"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/content_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/labelArticle"/>
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/labelArticle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_article"
+                android:textColor="@color/colorSecondary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/content_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/label_article"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
 
         </LinearLayout>
     </ScrollView>

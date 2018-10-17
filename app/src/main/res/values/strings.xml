@@ -3,6 +3,8 @@
     <string name="title_home">Local</string>
     <string name="title_notifications">Online</string>
 
+    <string name="label_category">Category</string>
+    <string name="label_article">Article</string>
 
     <string name="pass_recipe_title">recipe_title</string>
     <string name="pass_recipe_image">recipe_image</string>
