@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="category">
-        <item>All</item>
-        <item>Vegetarian</item>
-        <item>Vegan</item>
+        <item>@string/filter_all</item>
+        <item>@string/filter_vege</item>
+        <item>@string/filter_vegan</item>
     </string-array>
 </resources>

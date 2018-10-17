@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe Articles</string>
+    <string name="app_name"> Recipe Articles</string>
     <string name="title_home">Local</string>
     <string name="title_notifications">Online</string>
 
@@ -15,5 +15,15 @@
     <string name="online_db">onlineRecipes</string>
 
     <string name="firebase_db">recipes</string>
+
+    <string name="filter_all">All</string>
+    <string name="filter_vege">Vegetarian</string>
+    <string name="filter_vegan">Vegan</string>
+
+    <string name="fragment_local">local</string>
+    <string name="fragment_online">online</string>
+
+
+    <string name="error_recipe">Unable to add recipe!</string>
 
 </resources>

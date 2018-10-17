@@ -22,20 +22,17 @@ import org.json.JSONObject;
 public class fragment_online_recipe_list extends Fragment {
 
     ListView list;
+    String currentFilter;
 
-    String[] recipe_title;
-    String [] recipe_description;
+    String[] recipe_title, recipe_description;
     Integer [] recipe_image_id;
 
     private RecipeSQLiteDatabaseHelper onlineDB;
-
-    String currentFilter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_online_recipe_list, container, false);
     }
 
@@ -121,7 +118,6 @@ public class fragment_online_recipe_list extends Fragment {
         Cursor data = onlineDB.getRecipes(filter);
 
         int amountOfRecipes = data.getCount();
-        System.out.println("------------------------ amount of recipes" + amountOfRecipes);
         recipe_title = new String[amountOfRecipes];
         recipe_description = new String[amountOfRecipes];
         recipe_image_id = new Integer[amountOfRecipes];
@@ -133,7 +129,6 @@ public class fragment_online_recipe_list extends Fragment {
             recipe_title[count] = data.getString(1);
             recipe_description[count] = data.getString(2);
             recipe_image_id[count] = Integer.parseInt(data.getString(5));
-            System.out.println("loading :" + recipe_title[count]);
             count++;
         }
     }

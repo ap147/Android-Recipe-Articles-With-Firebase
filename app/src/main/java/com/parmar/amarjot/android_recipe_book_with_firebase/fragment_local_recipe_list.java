@@ -15,8 +15,7 @@ public class fragment_local_recipe_list extends Fragment {
 
     ListView list;
 
-    String[] recipe_title;
-    String [] recipe_description;
+    String[] recipe_title, recipe_description;
     Integer [] recipe_image_id;
 
     private RecipeSQLiteDatabaseHelper localDB;
@@ -43,70 +42,56 @@ public class fragment_local_recipe_list extends Fragment {
 
         Cursor data;
         int amountOfRecipes;
-        int count;
+        int count = 0;
 
-        localDB = new RecipeSQLiteDatabaseHelper(getContext(), "localRecipes");
+        localDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.local_db));
 
-        switch (filter) {
-            case "All":
-                System.out.println("Pulling all recipes");
+        if (getString(R.string.filter_all).equals(filter))
+        {
+            data = localDB.getRecipes(filter);
+            amountOfRecipes = data.getCount();
+            recipe_title = new String[amountOfRecipes];
+            recipe_description = new String[amountOfRecipes];
+            recipe_image_id = new Integer[amountOfRecipes];
 
-                data = localDB.getRecipes(filter);
-                amountOfRecipes = data.getCount();
-                recipe_title = new String[amountOfRecipes];
-                recipe_description = new String[amountOfRecipes];
-                recipe_image_id = new Integer[amountOfRecipes];
+            while (data.moveToNext()) {
+                recipe_title[count] = data.getString(1);
+                recipe_description[count] = data.getString(2);
+                recipe_image_id[count] = Integer.parseInt(data.getString(5));
+                System.out.println(recipe_title[count]);
+                count++;
+            }
+        }
+        else if (getString(R.string.filter_vege).equals(filter))
+        {
+            data = localDB.getRecipes(filter);
+            amountOfRecipes = data.getCount();
+            recipe_title = new String[amountOfRecipes];
+            recipe_description = new String[amountOfRecipes];
+            recipe_image_id = new Integer[amountOfRecipes];
 
-                count = 0;
-                while (data.moveToNext()) {
-                    //get the value from the database in column 1
-                    //then add it to the ArrayList
-                    recipe_title[count] = data.getString(1);
-                    recipe_description[count] = data.getString(2);
-                    recipe_image_id[count] = Integer.parseInt(data.getString(5));
-                    System.out.println(recipe_title[count]);
-                    count++;
-                }
-                break;
+            while (data.moveToNext()) {
+                recipe_title[count] = data.getString(1);
+                recipe_description[count] = data.getString(2);
+                recipe_image_id[count] = Integer.parseInt(data.getString(5));
+                System.out.println(recipe_title[count]);
+                count++;
+            }
+        }
+        else if (getString(R.string.filter_vegan).equals(filter))
+        {
+            data = localDB.getRecipes(filter);
+            amountOfRecipes = data.getCount();
+            recipe_title = new String[amountOfRecipes];
+            recipe_description = new String[amountOfRecipes];
+            recipe_image_id = new Integer[amountOfRecipes];
 
-            case "Vegetarian":
-                data = localDB.getRecipes(filter);
-                amountOfRecipes = data.getCount();
-                recipe_title = new String[amountOfRecipes];
-                recipe_description = new String[amountOfRecipes];
-                recipe_image_id = new Integer[amountOfRecipes];
-
-                count = 0;
-                while (data.moveToNext()) {
-                    //get the value from the database in column 1
-                    //then add it to the ArrayList
-                    recipe_title[count] = data.getString(1);
-                    recipe_description[count] = data.getString(2);
-                    recipe_image_id[count] = Integer.parseInt(data.getString(5));
-                    System.out.println(recipe_title[count]);
-                    count++;
-                }
-                break;
-
-            case "Vegan":
-                System.out.println("Pulling vegan recipes");
-                data = localDB.getRecipes(filter);
-                amountOfRecipes = data.getCount();
-                recipe_title = new String[amountOfRecipes];
-                recipe_description = new String[amountOfRecipes];
-                recipe_image_id = new Integer[amountOfRecipes];
-
-                count = 0;
-                while (data.moveToNext()) {
-                    //get the value from the database in column 1
-                    //then add it to the ArrayList
-                    recipe_title[count] = data.getString(1);
-                    recipe_description[count] = data.getString(2);
-                    recipe_image_id[count] = Integer.parseInt(data.getString(5));
-                    System.out.println(recipe_title[count]);
-                    count++;
-                }
-                break;
+            while (data.moveToNext()) {
+                recipe_title[count] = data.getString(1);
+                recipe_description[count] = data.getString(2);
+                recipe_image_id[count] = Integer.parseInt(data.getString(5));
+                count++;
+            }
         }
     }
 
@@ -134,7 +119,7 @@ public class fragment_local_recipe_list extends Fragment {
         getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
-    public void sayHello(String filter){
+    public void setupList(String filter){
         pullDataFromDB(filter);
         setupList();
     }

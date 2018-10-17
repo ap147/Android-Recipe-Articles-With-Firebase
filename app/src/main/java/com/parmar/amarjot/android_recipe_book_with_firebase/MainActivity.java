@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    String currentFragment = "";
-    String currentFilter = "All";
+    String currentFragment;
+    String currentFilter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
                     fragment_local_recipe_list localFragment = new fragment_local_recipe_list();
                     fragmentTransaction.replace(R.id.list_frame, localFragment);
                     fragmentTransaction.commit();
-                    currentFragment = "local";
+                    currentFragment = getString(R.string.fragment_local);
                     return true;
                 case R.id.navigation_notifications:
                     fragment_online_recipe_list onlineFragment = new fragment_online_recipe_list();
                     fragmentTransaction.replace(R.id.list_frame, onlineFragment);
                     fragmentTransaction.commit();
-                    currentFragment = "online";
+                    currentFragment = getString(R.string.fragment_online);
                     return true;
             }
             return false;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        currentFilter = getString(R.string.filter_all);
 
         setupActionbar();
         Intent intent = getIntent();
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.list_frame, fragment);
         fragmentTransaction.commit();
 
-        currentFragment = "local";
+        currentFragment = getString(R.string.fragment_local);
     }
 
     private void setupActionbar() {
@@ -90,23 +91,24 @@ public class MainActivity extends AppCompatActivity {
         toolbar.addView(navigationSpinner, 1);
 
         final String [] category = getResources().getStringArray(R.array.category);
+
         navigationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                toastMessage(category[position]);
                 String selectedCategory = category[position];
                 currentFilter = selectedCategory;
                 FragmentManager fm = getSupportFragmentManager();
 
-                switch (currentFragment){
-                    case  "local":
-                        fragment_local_recipe_list fragment = (fragment_local_recipe_list)fm.findFragmentById(R.id.list_frame);
-                        fragment.sayHello(selectedCategory);
-                        break;
-                    case "online":
-                        fragment_online_recipe_list fragmentx = (fragment_online_recipe_list)fm.findFragmentById(R.id.list_frame);
-                        fragmentx.setupList(selectedCategory);
-                        break;
+                if (getString(R.string.fragment_local).equals(currentFragment))
+                {
+                    fragment_local_recipe_list fragment = (fragment_local_recipe_list)fm.findFragmentById(R.id.list_frame);
+                    //assert fragment != null;
+                    fragment.setupList(selectedCategory);
+                }
+                else if (getString(R.string.fragment_online).equals(currentFragment)) {
+                    fragment_online_recipe_list fragment = (fragment_online_recipe_list)fm.findFragmentById(R.id.list_frame);
+                    //assert fragment != null;
+                    fragment.setupList(selectedCategory);
                 }
             }
 
@@ -133,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
 
-                RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, "localRecipes");
+                RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, getString(R.string.local_db));
                 localDB.addRecipe(newRecipe);
             }
             else {
-                toastMessage("Unable to add recipe.");
+                toastMessage(getString(R.string.error_recipe));
             }
         }
     }
