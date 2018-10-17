@@ -46,7 +46,7 @@ public class CustomListview extends ArrayAdapter <String>{
 
         viewHolder.textViewName.setText(recipe_title[position]);
         viewHolder.textViewDescription.setText(recipe_description[position]);
-        viewHolder.imageView.setImageResource(recipe_image_id[position]);
+        viewHolder.imageView.setImageResource(R.drawable.canaloni);//recipe_image_id[position]);
 
         return r;
     }

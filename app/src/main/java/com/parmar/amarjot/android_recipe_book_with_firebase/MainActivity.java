@@ -12,6 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.filter, menu);
+       // getMenuInflater().inflate(R.menu.filter, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -83,6 +88,27 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
+
+        SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.category, R.layout.spinner_dropdown_item);
+        Spinner navigationSpinner = new Spinner(getSupportActionBar().getThemedContext());
+        navigationSpinner.setAdapter(spinnerAdapter);
+        toolbar.addView(navigationSpinner, 1);
+
+        final String [] category = getResources().getStringArray(R.array.category);
+        navigationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                toastMessage(category[position]);
+                String selectedCategory = category[position];
+                local
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void handleIncomingRecipe(Intent intent) {

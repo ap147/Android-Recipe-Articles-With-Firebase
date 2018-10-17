@@ -3,9 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_logout"
+        android:id="@+id/action_filter"
         android:orderInCategory="100"
-        android:title="filter"
+        android:title="Filter"
         app:showAsAction="always"
         android:icon="@drawable/ic_round_filter_list_24px" />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="right|center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:textColor="@color/colorBase" />
 </menu>
