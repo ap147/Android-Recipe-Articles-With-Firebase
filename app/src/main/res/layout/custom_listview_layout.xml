@@ -32,6 +32,7 @@
                 android:layout_alignStart="@+id/textDescription"
                 android:fontFamily="sans-serif"
                 android:text="TextView"
+                android:textColor="@color/colorSecondary"
                 android:textSize="18sp"
                 android:typeface="normal" />
 
@@ -40,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:paddingRight="25dp"
+                android:textColor="@color/colorPrimary"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:text="TextView" />
