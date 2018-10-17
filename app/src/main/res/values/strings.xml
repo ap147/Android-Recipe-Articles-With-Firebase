@@ -16,6 +16,9 @@
 
     <string name="firebase_db">recipes</string>
 
+    <string name="text_save">Save</string>
+    <string name="text_remove">Remove</string>
+
     <string name="filter_all">All</string>
     <string name="filter_vege">Vegetarian</string>
     <string name="filter_vegan">Vegan</string>
@@ -23,7 +26,10 @@
     <string name="fragment_local">local</string>
     <string name="fragment_online">online</string>
 
+    <string name="success_recipe_saved">Recipe Saved Succesfully</string>
+    <string name="success_recipe_removed">Recipe Removed Succesfully</string>
 
     <string name="error_recipe">Unable to add recipe!</string>
-
+    <string name="error_when_saving_recipe">Unable to save recipe!</string>
+    <string name="error_msg">An error occured!</string>
 </resources>

@@ -61,7 +61,7 @@ public class RecipeDetailsFragment extends Fragment{
         final Button saveRecipeButton = getView().findViewById(R.id.buttonSaveRecipe);
         String recipeName = recipe.getName();
         if (localDB.recipeExists(recipeName)) {
-            saveRecipeButton.setText("Saved");
+            saveRecipeButton.setText(getString(R.string.text_save));
         }
 
         saveRecipeButton.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +69,11 @@ public class RecipeDetailsFragment extends Fragment{
 
                 if (localDB.recipeExists(recipe.getName())) {
                     unSaveRecipe();
-                    saveRecipeButton.setText("Save");
+                    saveRecipeButton.setText(getString(R.string.text_save));
                 }
                 else {
                     saveRecipe();
-                    saveRecipeButton.setText("Saved");
+                    saveRecipeButton.setText(getString(R.string.text_remove));
                 }
             }
         });
@@ -104,10 +104,10 @@ public class RecipeDetailsFragment extends Fragment{
     private void saveRecipe() {
 
         if (localDB.addRecipe(recipe)) {
-            toastMessage("Recipe Saved Succesfully");
+            toastMessage(getString(R.string.success_recipe_saved));
         }
         else {
-            toastMessage("An error occured");
+            toastMessage(getString(R.string.error_when_saving_recipe));
         }
     }
 
@@ -116,10 +116,10 @@ public class RecipeDetailsFragment extends Fragment{
         boolean result = localDB.deleteRecipe(recipe.getName());
 
         if (result) {
-            toastMessage("Recipe Unsaved Succesfully");
+            toastMessage(getString(R.string.success_recipe_removed));
         }
         else {
-            toastMessage("An error occured");
+            toastMessage(getString(R.string.error_msg));
         }
 
         return result;
