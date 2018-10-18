@@ -88,7 +88,7 @@ public class fragment_online_recipe_list extends Fragment {
                         onlineDB.addRecipe(recipe);
                         setupList(currentFilter);
 
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
