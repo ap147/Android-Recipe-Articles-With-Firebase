@@ -1,13 +1,16 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,10 +61,11 @@ public class RecipeDetailsFragment extends Fragment{
 
     private void setupSaveButton() {
 
-        final Button saveRecipeButton = getView().findViewById(R.id.buttonSaveRecipe);
+        final ImageButton saveRecipeButton = getView().findViewById(R.id.imageButton_save);
         String recipeName = recipe.getName();
         if (localDB.recipeExists(recipeName)) {
-            saveRecipeButton.setText(getString(R.string.text_save));
+
+            saveRecipeButton.setImageResource(R.drawable.ic_baseline_delete_24px);
         }
 
         saveRecipeButton.setOnClickListener(new View.OnClickListener() {
@@ -69,20 +73,20 @@ public class RecipeDetailsFragment extends Fragment{
 
                 if (localDB.recipeExists(recipe.getName())) {
                     unSaveRecipe();
-                    saveRecipeButton.setText(getString(R.string.text_save));
+                    saveRecipeButton.setImageResource(R.drawable.ic_baseline_save_24px);
                 }
                 else {
                     saveRecipe();
-                    saveRecipeButton.setText(getString(R.string.text_remove));
+                    saveRecipeButton.setImageResource(R.drawable.ic_baseline_delete_24px);
                 }
             }
         });
     }
 
+    @SuppressLint("ResourceAsColor")
     private void setupShareButton() {
 
-        final Button shareRecipeButton = getView().findViewById(R.id.buttonShareRecipe);
-
+        final ImageButton shareRecipeButton = getView().findViewById(R.id.imageButton_share);
         shareRecipeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shareRecipe();

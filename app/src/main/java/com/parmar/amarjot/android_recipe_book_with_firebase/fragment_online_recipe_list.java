@@ -124,8 +124,6 @@ public class fragment_online_recipe_list extends Fragment {
 
         int count = 0;
         while (data.moveToNext()) {
-            //get the value from the database in column 1
-            //then add it to the ArrayList
             recipe_title[count] = data.getString(1);
             recipe_description[count] = data.getString(2);
             recipe_image_id[count] = Integer.parseInt(data.getString(5));
