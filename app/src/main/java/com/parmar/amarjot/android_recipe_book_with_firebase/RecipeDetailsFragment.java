@@ -3,6 +3,7 @@ package com.parmar.amarjot.android_recipe_book_with_firebase;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -96,13 +97,13 @@ public class RecipeDetailsFragment extends Fragment{
 
     private void shareRecipe() {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.setType("text/plain");
+        sendIntent.setType(getString(R.string.share_type));
 
         String msgToShare = recipe.getName() + "\n" + recipe.getDescription() + ", "
                 + recipe.getCategory() + ", " + recipe.getArticle();
         sendIntent.putExtra(Intent.EXTRA_TEXT, msgToShare);
 
-        startActivity(Intent.createChooser(sendIntent, "Share using"));
+        startActivity(Intent.createChooser(sendIntent, getString(R.string.msg_share)));
     }
 
     private void saveRecipe() {
@@ -136,7 +137,7 @@ public class RecipeDetailsFragment extends Fragment{
         category.setText(recipe.getCategory());
 
         TextView article = getView().findViewById(R.id.content_article);
-        article.setText(R.string.wraps_article);//recipe.getArticle());
+        article.setText(recipe.getArticle());
     }
 
     private void toastMessage(String msg){

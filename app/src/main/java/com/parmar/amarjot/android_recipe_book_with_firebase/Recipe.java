@@ -1,5 +1,7 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
+import android.content.res.Resources;
+
 public class Recipe {
 
     private  String name;

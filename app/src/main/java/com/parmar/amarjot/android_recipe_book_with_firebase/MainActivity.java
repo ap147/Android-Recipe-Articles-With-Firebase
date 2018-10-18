@@ -173,4 +173,12 @@ public class MainActivity extends AppCompatActivity {
         return resourceId;
     }
 
+    public String getArticle(String articleName) {
+
+        Resources resources = getApplicationContext().getResources();
+        final int resourceId = resources.getIdentifier(articleName, "string",
+                getApplicationContext().getPackageName());
+        return getString(resourceId);
+    }
+
 }

@@ -78,13 +78,11 @@ public class fragment_online_recipe_list extends Fragment {
                     try {
                         obj = new JSONObject(singleSnapshot.getValue().toString());
 
-                        System.out.println("- JSON OBJECT : " + obj.toString());
-
-                        String recipeName = obj.getString("name");
-                        String recipeDescription = obj.getString("description");
-                        String recipeCategory = obj.getString("category");
-                        String recipeArticle = obj.getString("name");
-                        String recipeImageID = obj.getString("imageID");
+                        String recipeName = obj.getString(getString(R.string.firebase_recipe_name));
+                        String recipeDescription = obj.getString(getString(R.string.firebase_recipe_description));
+                        String recipeCategory = obj.getString(getString(R.string.firebase_recipe_category));
+                        String recipeArticle = ((MainActivity)getActivity()).getArticle(obj.getString(getString(R.string.firebase_recipe_article)));
+                        String recipeImageID = obj.getString(getString(R.string.firebase_recipe_imageID));
 
                         Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
                         onlineDB.addRecipe(recipe);

@@ -11,6 +11,12 @@
     <string name="pass_recipe_image">recipe_image</string>
     <string name="pass_recipe_type">recipe_type</string>
 
+    <string name="firebase_recipe_name">name</string>
+    <string name="firebase_recipe_description">description</string>
+    <string name="firebase_recipe_category">category</string>
+    <string name="firebase_recipe_article">article</string>
+    <string name="firebase_recipe_imageID">imageID</string>
+
     <string name="recipe_type_online">online</string>
     <string name="recipe_type_local">local</string>
 
@@ -29,6 +35,8 @@
     <string name="fragment_local">local</string>
     <string name="fragment_online">online</string>
 
+    <string name="share_type">text/plain</string>
+    <string name="msg_share">Share using</string>
     <string name="success_recipe_saved">Recipe Saved Succesfully</string>
     <string name="success_recipe_removed">Recipe Removed Succesfully</string>
 
@@ -36,6 +44,9 @@
     <string name="error_when_saving_recipe">Unable to save recipe!</string>
     <string name="error_msg">An error occured!</string>
 
+
+    <string name="wraps_description">
+    </string>
     <string name="wraps_article">
         Plantuary might technically be over (oh HEY February!) but as I mentioned a few days ago, we’re still doing our best around here to load in the veggies! I actually planned to post these Loaded Veggie Wraps a couple weeks ago, but, just didn’t get around to it. So is life, I suppose :)
         I thought that eating healthy, well balanced meals would be a lot easier now that I’m working from home. However, so far, I have not found that to be the case. When I was working a normal 9-5 job, there were set hours for lunch. If I didn’t take my lunch during those times then I was out of luck.
@@ -44,5 +55,24 @@
         his recipe is really just a suggestion and a place to get you started. I honestly just walked around the produce section and picked out a few things that sounded good to me in that moment, combined it with a few veggies that I had at home already and voila! Loaded Veggie Wrap.
         Oh, and in the end, I decided to also add salsa which was a GREAT decision. I didn’t however, feel like re-photographing, so. Just pretend that there’s some salsa in there!
         Loaded Veggie Wraps- these wraps are loaded with good for you vegetables, are completely vegan, and make for a quick and easy lunch on the go!
-        You might not think so, but these wraps actually taste great the next day. So it would totally work to make one or two the night before, bag em up and take them for lunch the next day!! Do it!</string>
+        You might not think so, but these wraps actually taste great the next day. So it would totally work to make one or two the night before, bag em up and take them for lunch the next day!! Do it!
+    </string>
+    <string name="wraps_article_source">https://foodwithfeeling.com/loaded-veggie-wraps/</string>
+
+    <string name="soup_description">This is an Asian twist on the traditional pumpkin soup so many are fond of. Truthfully speaking it isn\'t a Thai recipe but it does use Thai spices.</string>
+    <string name="soup_article">
+        Pumpkin season is back and I for one am ready to make the most of it!
+        There’s something so wonderful about trying to eat seasonally. Not only is it better for you, the environment, your pocket and the flavour department, but it gives you things to look forward to.
+        Those first new potatoes, asparagus, strawberries, peaches, pumpkins, oysters, all become a gift and something to be savoured while they’re at their best.
+        This cheeky little soup makes the very best of the new season pumpkins and squashes.
+        Fragrant, gently spicy, creamy, rich and packed with as much flavour as a Friday night take away, with none of the regret.
+        Naturally vegetarian and can very easily be made vegan.
+    </string>
+    <string name="soup_article_source">https://www.thelondoner.me/2017/10/thai-pumpkin-soup.html</string>
+
+    <string name="canaloni_description">This creamy ricotta and spinach-filled pasta with tomato base sauce is an absolute classic</string>
+    <string name="canaloni_article">Sometimes we get a cookbook that changes the game. We like cooking our way through as many of the season’s great books as we can, but now that the chefs at the Culinary Institute of America have provided us with the ultimate guide to simple yet innovative pasta recipes (plus everything you needed to know about polenta and crespelle), game on! Next up, goat cheese cannelloni. Bet you’ve never had that before.
+        This spin on classic cannelloni (Italian for “reed,” owing to its tubual shape) swaps the typical spinach-ricotta filling for tangy goat cheese and earthy Swiss chard.
+    </string>
+    <string name="canaloni_article_source">http://www.foodrepublic.com/recipes/cannelloni-with-swiss-chard-and-fresh-goat-cheese-recipe/</string>
 </resources>
