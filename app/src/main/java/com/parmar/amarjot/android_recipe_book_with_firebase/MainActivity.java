@@ -2,7 +2,9 @@ package com.parmar.amarjot.android_recipe_book_with_firebase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         currentFragment = getString(R.string.fragment_local);
+
+        getImageID("avocado_toast");
     }
 
     private void setupActionbar() {
@@ -164,5 +168,12 @@ public class MainActivity extends AppCompatActivity {
         return currentFilter;
     }
 
+    public int getImageID(String imageName) {
+        Resources resources = getApplicationContext().getResources();
+        final int resourceId = resources.getIdentifier(imageName, "drawable",
+                getApplicationContext().getPackageName());
+        toastMessage("IMAGE ID Is !!!!!!!!!!!!!!! : "+ resourceId);
+        return resourceId;
+    }
 
 }
