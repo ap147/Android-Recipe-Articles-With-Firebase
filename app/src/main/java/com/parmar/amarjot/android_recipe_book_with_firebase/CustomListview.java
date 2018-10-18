@@ -13,8 +13,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class CustomListview extends ArrayAdapter <String>{
 
-    private String [] recipe_title;
-    private String [] recipe_description;
+    private String [] recipe_title, recipe_description;
     private Integer [] recipe_image_id;
 
     private Activity context;
@@ -46,7 +45,8 @@ public class CustomListview extends ArrayAdapter <String>{
 
         viewHolder.textViewName.setText(recipe_title[position]);
         viewHolder.textViewDescription.setText(recipe_description[position]);
-        viewHolder.imageView.setImageResource(R.drawable.canaloni);//recipe_image_id[position]);
+        System.out.println("Does this " + R.drawable.avocado_toast + " = " + recipe_image_id[position]);
+        viewHolder.imageView.setImageResource(recipe_image_id[position]);
 
         return r;
     }

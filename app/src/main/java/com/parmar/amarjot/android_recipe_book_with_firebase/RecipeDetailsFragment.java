@@ -34,7 +34,7 @@ public class RecipeDetailsFragment extends Fragment{
         // This may not be good practice, https://stackoverflow.com/questions/11387740/where-how-to-getintent-getextras-in-an-android-fragment
         int recipe_image = getActivity().getIntent().getExtras().getInt(getString(R.string.pass_recipe_image));
         ImageView img = getView().findViewById(R.id.imageView);
-        img.setImageResource(R.drawable.canaloni);//recipe_image);
+        img.setImageResource(recipe_image);
 
         initilize();
     }
@@ -136,7 +136,7 @@ public class RecipeDetailsFragment extends Fragment{
         category.setText(recipe.getCategory());
 
         TextView article = getView().findViewById(R.id.content_article);
-        article.setText(recipe.getArticle());
+        article.setText(R.string.wraps_article);//recipe.getArticle());
     }
 
     private void toastMessage(String msg){

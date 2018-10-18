@@ -57,7 +57,7 @@ public class fragment_local_recipe_list extends Fragment {
             while (data.moveToNext()) {
                 recipe_title[count] = data.getString(1);
                 recipe_description[count] = data.getString(2);
-                recipe_image_id[count] = Integer.parseInt(data.getString(5));
+                recipe_image_id[count] = ((MainActivity)getActivity()).getImageID(data.getString(5));
                 System.out.println(recipe_title[count]);
                 count++;
             }
@@ -73,7 +73,7 @@ public class fragment_local_recipe_list extends Fragment {
             while (data.moveToNext()) {
                 recipe_title[count] = data.getString(1);
                 recipe_description[count] = data.getString(2);
-                recipe_image_id[count] = Integer.parseInt(data.getString(5));
+                recipe_image_id[count] = ((MainActivity)getActivity()).getImageID(data.getString(5));
                 System.out.println(recipe_title[count]);
                 count++;
             }
@@ -89,7 +89,7 @@ public class fragment_local_recipe_list extends Fragment {
             while (data.moveToNext()) {
                 recipe_title[count] = data.getString(1);
                 recipe_description[count] = data.getString(2);
-                recipe_image_id[count] = Integer.parseInt(data.getString(5));
+                recipe_image_id[count] = ((MainActivity)getActivity()).getImageID(data.getString(5));
                 count++;
             }
         }

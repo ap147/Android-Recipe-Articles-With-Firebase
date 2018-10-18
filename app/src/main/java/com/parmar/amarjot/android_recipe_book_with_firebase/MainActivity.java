@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         currentFragment = getString(R.string.fragment_local);
-
-        getImageID("avocado_toast");
     }
 
     private void setupActionbar() {
@@ -172,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         Resources resources = getApplicationContext().getResources();
         final int resourceId = resources.getIdentifier(imageName, "drawable",
                 getApplicationContext().getPackageName());
-        toastMessage("IMAGE ID Is !!!!!!!!!!!!!!! : "+ resourceId);
         return resourceId;
     }
 

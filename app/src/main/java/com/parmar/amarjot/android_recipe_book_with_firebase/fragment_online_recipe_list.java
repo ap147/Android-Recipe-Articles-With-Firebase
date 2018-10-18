@@ -108,6 +108,7 @@ public class fragment_online_recipe_list extends Fragment {
         Bundle recipe_details = new Bundle();
         recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
         recipe_details.putString(getString(R.string.pass_recipe_type), getString(R.string.recipe_type_online) );
+
         recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
         intent.putExtras(recipe_details);
         startActivity(intent);
@@ -126,7 +127,7 @@ public class fragment_online_recipe_list extends Fragment {
         while (data.moveToNext()) {
             recipe_title[count] = data.getString(1);
             recipe_description[count] = data.getString(2);
-            recipe_image_id[count] = Integer.parseInt(data.getString(5));
+            recipe_image_id[count] = ((MainActivity)getActivity()).getImageID(data.getString(5));
             count++;
         }
     }
