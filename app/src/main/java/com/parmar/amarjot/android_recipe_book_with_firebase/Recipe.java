@@ -8,6 +8,7 @@ public class Recipe {
     private  String category;
     private  String article;
     private  String imageID;
+    // true if user imported this recipe, otherwise false
     private  String userAdded;
 
     public Recipe(String _name, String _description, String _category, String _article, String _imageID, String _userAdded) {

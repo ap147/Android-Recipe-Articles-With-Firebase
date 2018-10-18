@@ -13,8 +13,10 @@ import java.util.ArrayList;
 
 public class fragment_local_recipe_list extends Fragment {
 
+    // Used to display recipes stored in local db.
     ListView list;
 
+    // Used to pass information to custom list
     String[] recipe_title, recipe_description;
     Integer [] recipe_image_id;
 
@@ -126,6 +128,7 @@ public class fragment_local_recipe_list extends Fragment {
             }
         });
     }
+
 
     protected void displayRecipeDetails(int position) {
         Intent intent = new Intent(getActivity(), DisplayRecipe.class);

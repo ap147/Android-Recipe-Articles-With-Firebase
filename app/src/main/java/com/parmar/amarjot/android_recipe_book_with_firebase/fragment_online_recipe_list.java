@@ -9,35 +9,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class fragment_online_recipe_list extends Fragment {
 
+    // Holds recipes fetched from temp local db.
     ListView list;
     String currentFilter;
 
+    // Used by custom list to display recipes
     String[] recipe_title, recipe_description;
     Integer [] recipe_image_id;
 
+    // Used to temporarily hold recipes retrieved from firebase
     private RecipeSQLiteDatabaseHelper onlineDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_online_recipe_list, container, false);
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    // Sets up temp local database
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         onlineDB = new RecipeSQLiteDatabaseHelper(getContext(), getString(R.string.online_db));
@@ -46,6 +45,7 @@ public class fragment_online_recipe_list extends Fragment {
         pullDataFromFirebase();
     }
 
+    // Creates a list full of recipes
     protected void setupList (String filter) {
 
         loadArrays(filter);
@@ -61,19 +61,17 @@ public class fragment_online_recipe_list extends Fragment {
         });
     }
 
+    // Fetches recipe article data from firebase and stores in a temp local db
     protected void pullDataFromFirebase() {
 
         onlineDB.clearDatabase();
-        // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference(getString(R.string.firebase_db));
-        // Attach a listener to read the data at our posts reference
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot singleSnapshot: dataSnapshot.getChildren())
                 {
-                    // How to parse JSON : //http://theoryapp.com/parse-json-in-java/
                     JSONObject obj;
                     try {
                         obj = new JSONObject(singleSnapshot.getValue().toString());
@@ -96,23 +94,12 @@ public class fragment_online_recipe_list extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                System.out.println(databaseError.getCode());
             }
         });
     }
 
-    protected void displayRecipeDetails(int position) {
-        Intent intent = new Intent(getActivity(), DisplayRecipe.class);
-        Bundle recipe_details = new Bundle();
-        recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
-        recipe_details.putString(getString(R.string.pass_recipe_type), getString(R.string.recipe_type_online) );
-
-        recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
-        intent.putExtras(recipe_details);
-        startActivity(intent);
-        getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
-    }
-
+    // Takes recipes from temp local database and stores it in arrays
     protected void loadArrays(String filter) {
         Cursor data = onlineDB.getRecipes(filter);
 
@@ -128,5 +115,19 @@ public class fragment_online_recipe_list extends Fragment {
             recipe_image_id[count] = ((MainActivity)getActivity()).getImageID(data.getString(5));
             count++;
         }
+    }
+
+    // When user clicks on a recipe, takes them to a new activity, displaying more information
+    // about recipe
+    protected void displayRecipeDetails(int position) {
+        Intent intent = new Intent(getActivity(), DisplayRecipe.class);
+        Bundle recipe_details = new Bundle();
+        recipe_details.putString(getString(R.string.pass_recipe_title), recipe_title[position]);
+        recipe_details.putString(getString(R.string.pass_recipe_type), getString(R.string.recipe_type_online) );
+
+        recipe_details.putInt(getString(R.string.pass_recipe_image), recipe_image_id[position]);
+        intent.putExtras(recipe_details);
+        startActivity(intent);
+        getActivity().overridePendingTransition( R.anim.slide_in_right, R.anim.slide_out_right);
     }
 }

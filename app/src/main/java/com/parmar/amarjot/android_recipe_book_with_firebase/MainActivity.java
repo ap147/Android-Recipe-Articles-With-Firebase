@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -35,12 +34,18 @@ public class MainActivity extends AppCompatActivity {
         String action = intent.getAction();
         String type = intent.getType();
 
+        // Checking if user is trying to import recipe
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if (getString(R.string.share_type).equals(type)) {
-                handleIncomingRecipe(intent); // Handle text being sent
+                handleIncomingRecipe(intent); // Handle recipe being sent
             }
         }
 
+        setupFragment();
+    }
+
+    // Show user their local recipes
+    public void setupFragment() {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         currentFragment = getString(R.string.fragment_local);
     }
 
+    // Loads appropriate list of recipes according to what user clicked
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -60,17 +66,16 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
-            // Creating fragmentA and placing it on left side
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_local:
                     fragment_local_recipe_list localFragment = new fragment_local_recipe_list();
                     fragmentTransaction.replace(R.id.list_frame, localFragment);
                     fragmentTransaction.commit();
                     currentFragment = getString(R.string.fragment_local);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_online:
                     fragment_online_recipe_list onlineFragment = new fragment_online_recipe_list();
                     fragmentTransaction.replace(R.id.list_frame, onlineFragment);
                     fragmentTransaction.commit();
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    // Sets up custom action bar with filter spinner (all, vegan, vege)
     private void setupActionbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         final String [] category = getResources().getStringArray(R.array.category);
 
         navigationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            // Depending on what recipes (local, online) user is viewing, call appropriate fragments method
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedCategory = category[position];
@@ -120,8 +127,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // gets called when user imports recipe
     private void handleIncomingRecipe(Intent intent) {
         String recipeData = intent.getStringExtra(Intent.EXTRA_TEXT);
+
+        // Making sure imported data is recipe
         if (recipeData != null) {
 
             String data [] = recipeData.split(getString(R.string.split));
@@ -165,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
     public String getCurrentFilter() {
         return currentFilter;
     }
+
+    // Methods below used to retrieve IDs from resources
 
     public int getImageID(String imageName) {
         Resources resources = getApplicationContext().getResources();
