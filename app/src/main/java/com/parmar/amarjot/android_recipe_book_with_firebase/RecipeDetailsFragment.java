@@ -132,9 +132,17 @@ public class RecipeDetailsFragment extends Fragment{
     private void setRecipeDetails() {
 
         TextView category = getView().findViewById(R.id.content_category);
+        TextView article = getView().findViewById(R.id.content_article);
+        if (recipe.getUserAdded().equals("true")) {
+
+        }
+        else {
+
+        }
+
         category.setText(recipe.getCategory());
 
-        TextView article = getView().findViewById(R.id.content_article);
+
         article.setText(recipe.getArticle());
     }
 

@@ -84,7 +84,7 @@ public class fragment_online_recipe_list extends Fragment {
                         String recipeArticle = ((MainActivity)getActivity()).getArticle(obj.getString(getString(R.string.firebase_recipe_article)));
                         String recipeImageID = obj.getString(getString(R.string.firebase_recipe_imageID));
 
-                        Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
+                        Recipe recipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID, "false");
                         onlineDB.addRecipe(recipe);
                         setupList(currentFilter);
 

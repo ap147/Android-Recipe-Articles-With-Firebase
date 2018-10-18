@@ -3,7 +3,6 @@ package com.parmar.amarjot.android_recipe_book_with_firebase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,6 +15,7 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL3 = "category";
     private static final String COL4 = "article";
     private static final String COL5 = "imageID";
+    private static final String COL6 = "userAdded";
 
     public RecipeSQLiteDatabaseHelper(Context context, String _tableName) {
 
@@ -28,7 +28,9 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
 
         String createTable = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " " + COL1 + " TEXT," + " " + COL2 + " TEXT," + " " + COL3 + " TEXT," + " " +
-                COL4 + " TEXT," + " " + COL5 + " TEXT)";
+                COL4 + " TEXT," + " " + COL5 + " TEXT," + " " +
+                COL6 + " TEXT)";
+
         sqLiteDatabase.execSQL(createTable);
     }
 
@@ -47,6 +49,7 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL3, addRecipe.getCategory());
         contentValues.put(COL4, addRecipe.getArticle());
         contentValues.put(COL5, addRecipe.getImageID());
+        contentValues.put(COL6, addRecipe.getUserAdded());
         SQLiteDatabase db = this.getWritableDatabase();
 
         long result = db.insert(TABLE_NAME, null, contentValues);
@@ -83,8 +86,8 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
             String recipeCategory = data.getString(3);
             String recipeArticle = data.getString(4);
             String recipeImageID = data.getString(5);
-
-            recipe = new Recipe(recipeNamee, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
+            String recipeUserAdded= data.getString(6);
+            recipe = new Recipe(recipeNamee, recipeDescription, recipeCategory, recipeArticle, recipeImageID, recipeUserAdded);
             return recipe;
         }
         return recipe;

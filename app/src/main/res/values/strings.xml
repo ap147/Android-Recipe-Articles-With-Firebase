@@ -11,6 +11,9 @@
     <string name="pass_recipe_image">recipe_image</string>
     <string name="pass_recipe_type">recipe_type</string>
 
+    <string name="default_recipe_imageID">food</string>
+    <string name="split">,,</string>
+    
     <string name="firebase_recipe_name">name</string>
     <string name="firebase_recipe_description">description</string>
     <string name="firebase_recipe_category">category</string>
@@ -89,6 +92,19 @@
         Most folks usually stop right there. But the mild richness of avocado plays well with a range of flavors, so the Epicurious Test Kitchen decided to take the beloved dip on a world tour. We combined the flavors of Mexican street corn (grilled corn kernels, queso fresco, chili powder) with our basic guacamole base, and of course it was a hit. Then we went all-American with a BLT-style combo of chopped romaine heart, ripe tomato, and crispy bacon. Pretty pomegranate, toasted pumpkin seeds, and chopped mint made a stunning Middle Eastern-inspired dip. Many recipes include sour cream, so we tried a splash of coconut milk to add creaminess to our Thai guacamole, along with zesty grated ginger and herbaceous cilantro. Our Japanese rendition incorporates chopped edamame for texture, a touch of pungent wasabi, and drizzle of rich, nutty sesame oil.
         Diced cucumber, radish, and chopped dill made a fresh and bright version that tastes surprisingly Scandinavian.</string>
     <string name="guacamole_article_source">https://www.epicurious.com/recipes-menus/recipe-freestyle-guacamole-article-article-article</string>
+
+
+    <string name="food_description">Tired of the same old guac? … And Yes, Mexican Guacamole.</string>
+    <string name="food_article">Sometimes we get a cookbook that changes the game. We like cooking our way through as many of the season’s
+        great books as we can, but now that the chefs at the Culinary Institute of America have provided us with the ultimate guide to simple yet
+        innovative pasta recipes (plus everything you needed to know about polenta and crespelle), game on! Next up, goat cheese cannelloni.
+        Bet you’ve never had that before. It\'s almost a law of nature: Where there are parties, there is always guacamole. And no wonder.
+        This classic dip has just five essential ingredients, and they combine to make an addictive mixture that pleases pretty much everyone.
+        Perfectly ripe avocados provide an unctuous, buttery base, and a squeeze of lemon or lime adds acid that balances out the fattiness of the fruit.
+        Jalapeños give a welcome dose of heat, and any kind of chopped allium (onion, scallion, chives) offers savory bite. Add a sprinkling of salt to wake up the flavors, and all you need is a handful of chips.
+        Most folks usually stop right there. But the mild richness of avocado plays well with a range of flavors, so the Epicurious Test Kitchen decided to take the beloved dip on a world tour. We combined the flavors of Mexican street corn (grilled corn kernels, queso fresco, chili powder) with our basic guacamole base, and of course it was a hit. Then we went all-American with a BLT-style combo of chopped romaine heart, ripe tomato, and crispy bacon. Pretty pomegranate, toasted pumpkin seeds, and chopped mint made a stunning Middle Eastern-inspired dip. Many recipes include sour cream, so we tried a splash of coconut milk to add creaminess to our Thai guacamole, along with zesty grated ginger and herbaceous cilantro. Our Japanese rendition incorporates chopped edamame for texture, a touch of pungent wasabi, and drizzle of rich, nutty sesame oil.
+        Diced cucumber, radish, and chopped dill made a fresh and bright version that tastes surprisingly Scandinavian.</string>
+    <string name="food_article_source">https://www.epicurious.com/recipes-menus/recipe-freestyle-guacamole-article-article-article</string>
 
 
 

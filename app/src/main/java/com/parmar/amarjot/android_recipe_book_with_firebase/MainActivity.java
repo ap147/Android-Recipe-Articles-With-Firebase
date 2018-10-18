@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
                 if (getString(R.string.fragment_local).equals(currentFragment))
                 {
                     fragment_local_recipe_list fragment = (fragment_local_recipe_list)fm.findFragmentById(R.id.list_frame);
-                    //assert fragment != null;
+                    assert fragment != null;
                     fragment.setupList(selectedCategory);
                 }
                 else if (getString(R.string.fragment_online).equals(currentFragment)) {
                     fragment_online_recipe_list fragment = (fragment_online_recipe_list)fm.findFragmentById(R.id.list_frame);
-                    //assert fragment != null;
+                    assert fragment != null;
                     fragment.setupList(selectedCategory);
                 }
             }
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         String recipeData = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (recipeData != null) {
 
-            String data [] = recipeData.split("#");
+            String data [] = recipeData.split(getString(R.string.split));
 
             if(data.length == 4 & !recipeExists(data[0]))
             {
@@ -132,9 +132,10 @@ public class MainActivity extends AppCompatActivity {
                 String recipeDescription = data[1];
                 String recipeCategory= data[2];
                 String recipeArticle = data[3];
-                String recipeImageID= "2131165277";
+                String recipeImageID= getString(R.string.default_recipe_imageID);
 
-                Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID);
+                System.out.println (recipeName + " " +  recipeDescription  + " " +  recipeCategory + " " +  recipeArticle);
+                Recipe newRecipe = new Recipe(recipeName, recipeDescription, recipeCategory, recipeArticle, recipeImageID, "true");
 
                 RecipeSQLiteDatabaseHelper localDB = new RecipeSQLiteDatabaseHelper(this, getString(R.string.local_db));
                 localDB.addRecipe(newRecipe);
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getDescription(String recipeDescriptionName) {
-
+        System.out.println(recipeDescriptionName);
         Resources resources = getApplicationContext().getResources();
         final int resourceId = resources.getIdentifier(recipeDescriptionName, "string",
                 getApplicationContext().getPackageName());

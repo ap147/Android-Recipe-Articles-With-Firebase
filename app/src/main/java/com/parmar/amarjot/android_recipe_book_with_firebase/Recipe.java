@@ -1,6 +1,5 @@
 package com.parmar.amarjot.android_recipe_book_with_firebase;
 
-import android.content.res.Resources;
 
 public class Recipe {
 
@@ -9,13 +8,15 @@ public class Recipe {
     private  String category;
     private  String article;
     private  String imageID;
+    private  String userAdded;
 
-    public Recipe(String _name, String _description, String _category, String _article, String _imageID) {
+    public Recipe(String _name, String _description, String _category, String _article, String _imageID, String _userAdded) {
         name = _name;
         description = _description;
         category = _category;
         article = _article;
         imageID = _imageID;
+        userAdded = _userAdded;
     }
 
     public String getName() {
@@ -36,5 +37,9 @@ public class Recipe {
 
     public String getImageID() {
         return imageID;
+    }
+
+    public String getUserAdded() {
+        return userAdded;
     }
 }
