@@ -18,9 +18,7 @@ import android.widget.Toast;
 
 public class RecipeDetailsFragment extends Fragment{
 
-    private RecipeSQLiteDatabaseHelper localDB;
-    private RecipeSQLiteDatabaseHelper onlineDB;
-
+    private RecipeSQLiteDatabaseHelper localDB, onlineDB;
     private Recipe recipe;
 
     @Override

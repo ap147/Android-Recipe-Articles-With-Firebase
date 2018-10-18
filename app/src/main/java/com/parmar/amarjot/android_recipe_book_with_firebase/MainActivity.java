@@ -22,8 +22,36 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    String currentFragment;
-    String currentFilter;
+    String currentFragment, currentFilter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        currentFilter = getString(R.string.filter_all);
+
+        setupActionbar();
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (getString(R.string.share_type).equals(type)) {
+                handleIncomingRecipe(intent); // Handle text being sent
+            }
+        }
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment_local_recipe_list fragment = new fragment_local_recipe_list();
+        fragmentTransaction.add(R.id.list_frame, fragment);
+        fragmentTransaction.commit();
+
+        currentFragment = getString(R.string.fragment_local);
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,35 +80,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        currentFilter = getString(R.string.filter_all);
-
-        setupActionbar();
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        String type = intent.getType();
-
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
-            if ("text/plain".equals(type)) {
-                handleIncomingRecipe(intent); // Handle text being sent
-            }
-        }
-
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment_local_recipe_list fragment = new fragment_local_recipe_list();
-        fragmentTransaction.add(R.id.list_frame, fragment);
-        fragmentTransaction.commit();
-
-        currentFragment = getString(R.string.fragment_local);
-    }
 
     private void setupActionbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -177,6 +176,14 @@ public class MainActivity extends AppCompatActivity {
 
         Resources resources = getApplicationContext().getResources();
         final int resourceId = resources.getIdentifier(articleName, "string",
+                getApplicationContext().getPackageName());
+        return getString(resourceId);
+    }
+
+    public String getDescription(String recipeDescriptionName) {
+
+        Resources resources = getApplicationContext().getResources();
+        final int resourceId = resources.getIdentifier(recipeDescriptionName, "string",
                 getApplicationContext().getPackageName());
         return getString(resourceId);
     }
