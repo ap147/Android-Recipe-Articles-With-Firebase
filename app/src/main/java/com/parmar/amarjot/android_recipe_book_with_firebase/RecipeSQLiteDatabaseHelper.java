@@ -95,7 +95,7 @@ public class RecipeSQLiteDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getRecipes(String filter) {
 
-        Cursor recipes = null;
+        Cursor recipes;
         SQLiteDatabase db = this.getWritableDatabase();
         String query = null;
 
